@@ -5,6 +5,10 @@
   font-size: 40px;
 }
 
+container-fluid {
+  width: 800px;
+}
+
 
 body {
   background-color: White;
