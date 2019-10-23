@@ -36,5 +36,5 @@ li a:hover {
 
 img {
   float: left;
-  object-fit: cover;
+  object-fit: contain;
 }
