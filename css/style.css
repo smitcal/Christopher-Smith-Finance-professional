@@ -10,12 +10,20 @@ body {
   background-color: White;
 }
 
-ul {
+ul.nav nav-pills {
   list-style-type: none;
   margin: 0;
   padding: 0;
   overflow: hidden;
   background-color: #333;
+}
+
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: white;
 }
 
 li {
