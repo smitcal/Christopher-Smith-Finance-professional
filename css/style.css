@@ -22,6 +22,10 @@ ul.skills {
   background-color: white;
 }
 
+ul {
+  margin-bottom: 20px;
+}
+
 li {
   float: left;
 }
