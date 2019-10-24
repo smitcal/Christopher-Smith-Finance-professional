@@ -17,6 +17,7 @@ ul.nav-pills {
   padding: 0;
   overflow: hidden;
   background-color: #333;
+  width:100%;
 }
 
 ul.skills {
