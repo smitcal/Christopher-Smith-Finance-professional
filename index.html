@@ -8,19 +8,6 @@
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-  <!-- Add a custom CSS section -->
-<style>
-  /* ... (existing CSS styles) ... */
-
-  /* Adjust the width of the contact form box to be twice the width */
-  .contact-form-container {
-    background-color: rgba(255, 255, 255, 0.8);
-    max-width: 1000px;
-    width: calc(100% - 100px); /* Set the width to 100% of the container minus 100px */
-    padding: 16px; /* Add some padding to match the original style */
-    margin: 0 auto; /* Center the contact form horizontally */
-  }
-</style>
 
 <!-- ... (rest of your HTML code) ... -->
 
@@ -31,6 +18,15 @@
 </head>
 <body>
 <style>
+
+  
+  /* Custom CSS for the contact form container */
+.contact-form-container {
+  width: 1000px; /* Set the width to 1000px (or any desired value) */
+  margin: 0 auto; /* Center the container horizontally on the page */
+}
+
+  
 body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", sans-serif}
 
 body, html {
@@ -128,7 +124,8 @@ body, html {
   Google
 </a>
 
-
+<!-- Contact Form Container -->
+<div class="contact-form-container">
 <!-- Contact Form on the Right -->
 <div class="w3-display-right w3-display-container w3-padding" style="background-color: rgba(255, 255, 255, 0.8); max-width: 750px; right: calc(10% + 50px);">
   <h3 class="w3-center">Request a Callback</h3>
@@ -163,7 +160,7 @@ body, html {
     Thank you for submitting your query, someone will contact you shortly.
   </div>
 </div>
-
+</div>
   </div>
 
   </div>
