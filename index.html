@@ -8,15 +8,29 @@
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-
+</head>
+<body>
 <style>
-/* Custom CSS for the contact form container */
-.contact-form-container {
-  width: 1000px; /* Set the width to 1000px (or any desired value) */
-  margin: 0 auto; /* Center the container horizontally on the page */
+body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", sans-serif}
+
+body, html {
+  height: 100%;
+  line-height: 1.8;
+  margin: 0;
+}
+
+/* Full height image header */
+.bgimg-1 {
+  background-position: center;
+  background-size: cover;
+  background-image: url("mitchell-luo-z1c9juteR5c-unsplash (1).jpg");
+  min-height: 100%;
+}
+
+.w3-bar .w3-button {
+  padding: 16px;
 }
 </style>
-
 </head>
 <body>
 
@@ -55,56 +69,83 @@
     <span class="w3-jumbo w3-hide-small">Labyrinth Mortgages</span><br>
     <span class="w3-xxlarge w3-hide-large w3-hide-medium">Labyrinth Finance</span><br>
     <span class="w3-xlarge">Guiding you to your home.</span>
-    <p>
+ <p>
 
-    <!-- Link to google review and star build-->
-    <a href="https://www.google.com/maps/place/Christopher+Smith+Mortgage+Broker+Specialising+in+Self-Employed,+Bad+Credit+Mortgages,+and+other+Complex+Mortgages/@53.4994624,-2.5031566,17z/data=!4m6!3m5!1s0x602f8598fcd86965:0x30ee059fdf8beb19!8m2!3d53.4994624!4d-2.5005763!16s%2Fg%2F11s5mmmm77?entry=ttu">
-      <i class="fa fa-star" style="color: gold;"></i>
-      <i class="fa fa-star" style="color: gold;"></i>
-      <i class="fa fa-star" style="color: gold;"></i>
-      <i class="fa fa-star" style="color: gold;"></i>
-      <i class="fa fa-star" style="color: gold;"></i>
-      Google
-    </a>
-    </p>
+<!-- Link to google review and star build-->
+  <a href="https://www.google.com/maps/place/Christopher+Smith+Mortgage+Broker+Specialising+in+Self-Employed,+Bad+Credit+Mortgages,+and+other+Complex+Mortgages/@53.4994624,-2.5031566,17z/data=!4m6!3m5!1s0x602f8598fcd86965:0x30ee059fdf8beb19!8m2!3d53.4994624!4d-2.5005763!16s%2Fg%2F11s5mmmm77?entry=ttu">
+    <i class="fa fa-star" style="color: gold;"></i>
+    <i class="fa fa-star" style="color: gold;"></i>
+    <i class="fa fa-star" style="color: gold;"></i>
+    <i class="fa fa-star" style="color: gold;"></i>
+    <i class="fa fa-star" style="color: gold;"></i>
+    Google
+  </a>
+</p>
+</a>
   </div>
-</header>
 
-<!-- Contact Form Container -->
-<div class="contact-form-container">
-  <!-- Contact Form on the Right -->
-  <div class="w3-display-right w3-display-container w3-padding" style="background-color: rgba(255, 255, 255, 0.8); max-width: 750px; right: calc(10% + 50px);">
-    <h3 class="w3-center">Request a Callback</h3>
-    <form action="mailto:chris@moneymatters-chorley.co.uk" method="post" enctype="text/plain">
-      <div class="w3-section">
-        <label for="name"><b>Name:</b></label>
-        <input type="text" placeholder="Name - JohnDoe" name="name" required style="width: 100%;">
-      </div>
-      <div class="w3-section">
-        <label for="email"><b>Email:</b></label>
-        <input type="email" placeholder="Email - johndoe@email.com" name="email" required style="width: 100%;">
-      </div>
-      <div class="w3-section">
-        <label for="subject"><b>Subject:</b></label>
-        <select name="subject" required style="width: 100%;">
-          <option value="purchase">Purchase</option>
-          <option value="remortgage">Remortgage</option>
-          <option value="equity_release">Equity Release</option>
-          <option value="commercial">Commercial</option>
-        </select>
-      </div>
-      <div class="w3-section">
-        <label for="query"><b>Message:</b></label>
-        <!-- Increase the height of the textarea -->
-        <textarea placeholder="I am looking to purchase a property, and I have bad credit/self-employed, etc." name="query" required style="width: 100%; height: 12em;"></textarea>
-      </div>
-      <div class="w3-section">
-        <button type="submit">Submit</button>
-      </div>
-    </form>
-    <div class="w3-section" style="display: none;" id="thank-you-message">
-      Thank you for submitting your query, someone will contact you shortly.
+<style>
+  /* Custom styles for the Google link */
+  .google-link {
+    font-size: 52px;
+    font-weight: bold;
+    color: white;
+    text-decoration: none;
+    background-color: transparent; /* Yellow/Gold color for the stars */
+    padding: 5px 10px; /* Add some padding around the link */
+    border-radius: 5px; /* Add rounded corners */
+  }
+
+  .google-link img {
+    vertical-align: middle; /* To vertically align the stars with the text */
+    margin-right: 5px; /* Add some space between the stars and the text */
+  }
+</style>
+
+<!-- Link to google reviews -->
+<a href="https://www.google.com/maps/place/Christopher+Smith+Mortgage+Broker+Specialising+in+Self-Employed,+Bad+Credit+Mortgages,+and+other+Complex+Mortgages/@53.4994624,-2.5031566,17z/data=!4m17!1m8!3m7!1s0x602f8598fcd86965:0x30ee059fdf8beb19!2sChristopher+Smith+Mortgage+Broker+Specialising+in+Self-Employed,+Bad+Credit+Mortgages,+and+other+Complex+Mortgages!8m2!3d53.4994624!4d-2.5005763!10e5!16s%2Fg%2F11s5mmmm77!3m7!1s0x602f8598fcd86965:0x30ee059fdf8beb19!8m2!3d53.4994624!4d-2.5005763!9m1!1b1!16s%2Fg%2F11s5mmmm77?entry=ttu" target="_blank">
+  <img src="https://www.gstatic.com/webp/gallery/5.jpg" alt="Google 5-star rating" width="50" height="50">
+  Google
+</a>
+
+
+<!-- Contact Form on the Right -->
+<div class="w3-display-right w3-display-container w3-padding" style="background-color: rgba(255, 255, 255, 0.8); max-width: 500px; right: calc(10% + 50px);">
+  <h3 class="w3-center">Request a Callback</h3>
+  <form action="mailto:chris@moneymatters-chorley.co.uk" method="post" enctype="text/plain">
+    <div class="w3-section">
+      <label for="name"><b>Name:</b></label>
+      <input type="text" placeholder="Name - JohnDoe" name="name" required style="width: 100%;">
     </div>
+    <div class="w3-section">
+      <label for="email"><b>Email:</b></label>
+      <input type="email" placeholder="Email - johndoe@email.com" name="email" required style="width: 100%;">
+    </div>
+    <div class="w3-section">
+      <label for="subject"><b>Subject:</b></label>
+      <select name="subject" required style="width: 100%;">
+        <option value="purchase">Purchase</option>
+        <option value="remortgage">Remortgage</option>
+        <option value="equity_release">Equity Release</option>
+        <option value="commercial">Commercial</option>
+      </select>
+    </div>
+    <div class="w3-section">
+      <label for="query"><b>Message:</b></label>
+      <!-- Increase the height of the textarea -->
+      <textarea placeholder="I am looking to purchase a property, and I have bad credit/self-employed, etc." name="query" required style="width: 100%; height: 12em;"></textarea>
+    </div>
+    <div class="w3-section">
+      <button type="submit">Submit</button>
+    </div>
+  </form>
+  <div class="w3-section" style="display: none;" id="thank-you-message">
+    Thank you for submitting your query, someone will contact you shortly.
+  </div>
+</div>
+
+  </div>
+
   </div>
 </div>
 </header>
@@ -114,9 +155,6 @@
 <script src="https://static.elfsight.com/platform/platform.js" data-use-service-core defer></script>
 <div class="elfsight-app-60a8a734-83ed-48ca-9b64-78e10bff59a2"></div>
 
-  
-<!-- Contact Section -->
-
 
 
 <!-- Promo Section - "We know design" -->
@@ -125,7 +163,7 @@
     <div class="w3-col m6">
       <h3>We know design.</h3>
       <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore.</p>
-      <p><a href="#work" class="w3-button w3-black"><i class="fa fa-th"> </i> View Our Works</a></p>
+      <p><a href="#work" class="w3-button w3-black"><i class="fa fa-th"> </i> View Our Works</a></p>
     </div>
     <div class="w3-col m6">
       <img class="w3-image w3-round-large" src="workshop.jpg" alt="Workshop">
@@ -385,6 +423,3 @@ function w3_close() {
     mySidebar.style.display = "none";
 }
 </script>
-
-</body>
-</html>
