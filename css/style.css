@@ -494,6 +494,75 @@ section {
     line-height: 1.2;
 }
 
+.screenshot-container {
+    margin-top: 2rem;
+    text-align: center;
+}
+
+.experience-screenshot {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.experience-screenshot:hover {
+    transform: scale(1.02);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+}
+
+.screenshot-caption {
+    margin-top: 0.75rem;
+    font-size: 0.9rem;
+    color: var(--text-light);
+    font-style: italic;
+}
+
+.testimonials-box {
+    margin-top: 2rem;
+    padding: 2rem;
+    background: linear-gradient(135deg, var(--light-bg) 0%, #e0f2f1 100%);
+    border-radius: 12px;
+    border-left: 4px solid var(--secondary-color);
+    text-align: center;
+}
+
+.testimonials-content h4 {
+    color: var(--primary-color);
+    font-size: 1.5rem;
+    margin-bottom: 0.75rem;
+}
+
+.testimonials-content h4 i {
+    color: #fbbf24;
+}
+
+.testimonials-content p {
+    color: var(--text-light);
+    margin-bottom: 1.5rem;
+    font-size: 1.05rem;
+}
+
+.btn-testimonials {
+    background-color: var(--secondary-color);
+    color: var(--white);
+    padding: 0.875rem 2rem;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 600;
+    display: inline-block;
+    transition: all 0.3s ease;
+    border: 2px solid var(--secondary-color);
+}
+
+.btn-testimonials:hover {
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(20, 184, 166, 0.3);
+}
+
 /* =====================
    Skills Section
    ===================== */
@@ -648,6 +717,29 @@ section {
     color: var(--white);
     text-align: center;
     padding: 2rem 0;
+}
+
+.footer-social {
+    margin-bottom: 1.5rem;
+}
+
+.social-link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 50%;
+    color: var(--white);
+    font-size: 1.5rem;
+    transition: all 0.3s ease;
+    margin: 0 0.5rem;
+}
+
+.social-link:hover {
+    background-color: var(--secondary-color);
+    transform: translateY(-3px);
 }
 
 .footer p {
