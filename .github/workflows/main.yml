@@ -1,9 +1,9 @@
 name: Financial Reconciliation Automation
 
 on:
-  # Run every 6 hours
+  # Run every Saturday at midday (12:00 PM UTC)
   schedule:
-    - cron: '0 */6 * * *'
+    - cron: '0 12 * * 6'
 
   # Allow manual triggering
   workflow_dispatch:
