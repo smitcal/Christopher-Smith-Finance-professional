@@ -120,8 +120,7 @@ class DataProcessor:
     def process_pdf_commission_statement(self, pdf_data):
         """
         Extract commission data from PDF and update master data.
-        Looks for table with: Date, BRID, Case ID, Customer, Negotiator,
-        Payment Type, Reference Received, Paid
+        Flexibly finds tables with Case ID and payment information.
         """
         logger.info("Processing PDF commission statement")
 
@@ -132,32 +131,59 @@ class DataProcessor:
                     tables = page.extract_tables()
 
                     for table in tables:
-                        if not table:
+                        if not table or len(table) < 2:
                             continue
 
                         # Convert to DataFrame
                         df = pd.DataFrame(table[1:], columns=table[0])
 
-                        # Check if this looks like a commission statement
-                        required_cols = ['Case ID', 'Payment Type', 'Paid']
-                        if not all(col in df.columns for col in required_cols):
+                        # Log all column names for debugging
+                        logger.info(f"PDF Table columns: {df.columns.tolist()}")
+
+                        # Find Case ID column (flexible matching)
+                        case_id_col = None
+                        for col in df.columns:
+                            if col and ('case' in str(col).lower() and 'id' in str(col).lower()):
+                                case_id_col = col
+                                break
+
+                        # Find Paid/Amount column (flexible matching)
+                        paid_col = None
+                        for col in df.columns:
+                            col_lower = str(col).lower()
+                            if col and ('paid' in col_lower or 'amount' in col_lower or 'received' in col_lower):
+                                paid_col = col
+                                break
+
+                        # Find Payment Type column (flexible matching)
+                        payment_type_col = None
+                        for col in df.columns:
+                            col_lower = str(col).lower()
+                            if col and ('payment' in col_lower or 'type' in col_lower or 'fee' in col_lower):
+                                payment_type_col = col
+                                break
+
+                        # If we don't have at least Case ID and Paid columns, skip this table
+                        if not case_id_col or not paid_col:
+                            logger.info(f"Skipping table - missing required columns (Case ID: {case_id_col}, Paid: {paid_col})")
                             continue
 
-                        logger.info(f"Found commission table with {len(df)} rows")
+                        logger.info(f"Found commission table with {len(df)} rows (Case ID: {case_id_col}, Paid: {paid_col}, Payment Type: {payment_type_col})")
 
                         # Process each row
                         for idx, row in df.iterrows():
-                            case_id = str(row.get('Case ID', '')).strip()
-                            payment_type = str(row.get('Payment Type', '')).strip()
-                            paid_str = str(row.get('Paid', '0'))
+                            case_id = str(row.get(case_id_col, '')).strip()
+                            paid_str = str(row.get(paid_col, '0'))
+                            payment_type = str(row.get(payment_type_col, 'Commission')).strip() if payment_type_col else 'Commission'
 
-                            if not case_id or case_id == 'nan':
+                            if not case_id or case_id == 'nan' or not case_id.isdigit():
                                 continue
 
                             # Clean payment amount
                             paid_amount = self._clean_currency(paid_str)
 
                             if paid_amount > 0:
+                                logger.info(f"Extracted from PDF: Case {case_id}, {payment_type} = £{paid_amount:.2f}")
                                 self._update_payment(case_id, payment_type, paid_amount)
 
         except Exception as e:
@@ -206,9 +232,8 @@ class DataProcessor:
 
     def process_excel_introducer_report(self, excel_data, filename):
         """
-        Process introducer report (new leads).
-        Expected columns: Priority, Created, CaseID, Report Name,
-        Full Names, Status, Advisor, etc.
+        Process introducer report with case details and fees.
+        Extracts: CaseID, Status, Admin fee, Broker fee, Proc fee, and all other columns.
         """
         logger.info(f"Processing introducer report: {filename}")
 
@@ -219,12 +244,22 @@ class DataProcessor:
             else:
                 df = pd.read_excel(io.BytesIO(excel_data))
 
-            # Ensure CaseID is string
-            if 'CaseID' in df.columns:
-                df['CaseID'] = df['CaseID'].astype(str)
-            else:
+            # Log all columns for debugging
+            logger.info(f"Excel columns: {df.columns.tolist()}")
+
+            # Find CaseID column (flexible matching)
+            caseid_col = None
+            for col in df.columns:
+                if col and 'caseid' in str(col).lower().replace(' ', ''):
+                    caseid_col = col
+                    break
+
+            if not caseid_col:
                 logger.error("No CaseID column found in introducer report")
                 return
+
+            # Ensure CaseID is string
+            df[caseid_col] = df[caseid_col].astype(str)
 
             logger.info(f"Found {len(df)} cases in introducer report")
 
@@ -232,29 +267,66 @@ class DataProcessor:
             if self.master_data.empty:
                 self.master_data = pd.DataFrame(columns=df.columns)
 
+            # Fee columns to extract and update
+            fee_columns = []
+            for col in df.columns:
+                col_lower = str(col).lower()
+                if 'fee' in col_lower or 'proc' in col_lower:
+                    fee_columns.append(col)
+
+            logger.info(f"Fee columns found: {fee_columns}")
+
             # Process each case
             for idx, row in df.iterrows():
-                case_id = str(row['CaseID']).strip()
+                case_id = str(row[caseid_col]).strip()
 
                 if not case_id or case_id == 'nan':
                     continue
 
                 # Check if case exists
-                mask = self.master_data['CaseID'] == case_id
+                mask = self.master_data['CaseID'] == case_id if 'CaseID' in self.master_data.columns else pd.Series([False] * len(self.master_data))
 
                 if mask.any():
-                    # Update status only
-                    if 'Status' in row and 'Status' in self.master_data.columns:
-                        old_status = self.master_data.loc[mask, 'Status'].iloc[0]
-                        new_status = row['Status']
-                        if old_status != new_status:
-                            self.master_data.loc[mask, 'Status'] = new_status
-                            logger.info(f"Updated Case {case_id}: Status {old_status} → {new_status}")
-                            self.updates_made.append(case_id)
+                    # Update existing case - update ALL columns from Excel
+                    updates = []
+                    for col in df.columns:
+                        # Ensure column exists in master data
+                        if col not in self.master_data.columns:
+                            self.master_data[col] = None
+
+                        new_value = row[col]
+
+                        # For fee columns, add to existing value instead of replacing
+                        if col in fee_columns and pd.notna(new_value):
+                            try:
+                                fee_amount = self._clean_currency(str(new_value))
+                                if fee_amount > 0:
+                                    current_value = self.master_data.loc[mask, col].iloc[0]
+                                    current_value = 0.0 if pd.isna(current_value) else float(current_value)
+                                    new_total = current_value + fee_amount
+                                    self.master_data.loc[mask, col] = new_total
+                                    updates.append(f"{col}: £{new_total:.2f}")
+                            except (ValueError, TypeError):
+                                pass
+                        else:
+                            # For non-fee columns, just update the value
+                            old_value = self.master_data.loc[mask, col].iloc[0]
+                            if pd.isna(old_value) or str(old_value) != str(new_value):
+                                self.master_data.loc[mask, col] = new_value
+                                if col in ['Status', 'Last Action', 'Priority']:
+                                    updates.append(f"{col}: {new_value}")
+
+                    if updates:
+                        logger.info(f"Updated Case {case_id}: {', '.join(updates)}")
+                        self.updates_made.append(case_id)
                 else:
-                    # Add new case
+                    # Add new case with all columns
                     logger.info(f"Adding new case: {case_id}")
-                    self.master_data = pd.concat([self.master_data, pd.DataFrame([row])], ignore_index=True)
+                    # Ensure 'CaseID' column name is standardized
+                    new_row = row.to_dict()
+                    if caseid_col != 'CaseID':
+                        new_row['CaseID'] = new_row.pop(caseid_col)
+                    self.master_data = pd.concat([self.master_data, pd.DataFrame([new_row])], ignore_index=True)
                     self.updates_made.append(case_id)
 
         except Exception as e:
