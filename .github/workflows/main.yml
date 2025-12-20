@@ -31,10 +31,6 @@ jobs:
         env:
           EMAIL_USER: ${{ secrets.EMAIL_USER }}
           EMAIL_PASS: ${{ secrets.EMAIL_PASS }}
-          FTP_HOST: ${{ secrets.FTP_HOST }}
-          FTP_USER: ${{ secrets.FTP_USER }}
-          FTP_PASS: ${{ secrets.FTP_PASS }}
-          FTP_DIRECTORY: ${{ secrets.FTP_DIRECTORY }}
         run: |
           python main.py
 
@@ -45,7 +41,7 @@ jobs:
           name: master-data-${{ github.run_number }}
           path: |
             master_data.xlsx
-            commission_dashboard_private.html
+            dashboard.html
           retention-days: 30
 
       - name: Commit updated master data (optional)

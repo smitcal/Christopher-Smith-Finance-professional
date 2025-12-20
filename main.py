@@ -2,16 +2,20 @@
 """
 Financial Commission Reconciliation Automation
 Scans Gmail for commission statements and introducer reports,
-updates master data, and publishes a private dashboard via FTP.
+updates master data, and emails you the results with dashboard.
 """
 
 import os
 import io
 import logging
 import re
+import smtplib
+from email.mime.multipart import MIMEMultipart
+from email.mime.text import MIMEText
+from email.mime.base import MIMEBase
+from email import encoders
 from datetime import datetime, timedelta
 from pathlib import Path
-from ftplib import FTP
 import pandas as pd
 import pdfplumber
 from imap_tools import MailBox, AND
@@ -27,16 +31,14 @@ logger = logging.getLogger(__name__)
 # Configuration from environment variables
 EMAIL_USER = os.environ.get('EMAIL_USER')
 EMAIL_PASS = os.environ.get('EMAIL_PASS')
-FTP_HOST = os.environ.get('FTP_HOST')
-FTP_USER = os.environ.get('FTP_USER')
-FTP_PASS = os.environ.get('FTP_PASS')
-FTP_DIRECTORY = os.environ.get('FTP_DIRECTORY', '/public_html/private_dashboard/')
 MASTER_DATA_FILE = 'master_data.xlsx'
-DASHBOARD_FILE = 'commission_dashboard_private.html'
+DASHBOARD_FILE = 'dashboard.html'
 
 # Email search configuration
 DAYS_BACK = 7
 IMAP_SERVER = 'imap.gmail.com'
+SMTP_SERVER = 'smtp.gmail.com'
+SMTP_PORT = 587
 
 
 class EmailFetcher:
@@ -481,47 +483,94 @@ class DashboardGenerator:
         return table_html
 
 
-class FTPUploader:
-    """Handles FTP upload to website."""
+class EmailSender:
+    """Handles sending email reports with attachments."""
 
-    def __init__(self, host, user, password, directory):
-        self.host = host
-        self.user = user
-        self.password = password
-        self.directory = directory
+    def __init__(self, email_user, email_pass):
+        self.email_user = email_user
+        self.email_pass = email_pass
+        self.smtp_server = SMTP_SERVER
+        self.smtp_port = SMTP_PORT
 
-    def upload_file(self, local_file, remote_filename):
-        """Upload file to FTP server."""
-        logger.info(f"Connecting to FTP: {self.host}")
+    def send_report(self, emails_processed, total_commission, master_file, dashboard_file):
+        """
+        Send email with commission reconciliation report.
+
+        Args:
+            emails_processed: Number of emails processed
+            total_commission: Total commission amount found
+            master_file: Path to master data Excel file
+            dashboard_file: Path to HTML dashboard
+        """
+        logger.info(f"Preparing email report to {self.email_user}")
 
         try:
-            with FTP(self.host) as ftp:
-                ftp.login(self.user, self.password)
-                logger.info(f"Logged in as {self.user}")
+            # Create message
+            msg = MIMEMultipart()
+            msg['From'] = self.email_user
+            msg['To'] = self.email_user
+            msg['Subject'] = f"Commission Reconciliation Report - {datetime.now().strftime('%Y-%m-%d')}"
 
-                # Change to target directory
-                try:
-                    ftp.cwd(self.directory)
-                except Exception:
-                    logger.info(f"Creating directory: {self.directory}")
-                    # Try to create directory path
-                    parts = self.directory.strip('/').split('/')
-                    for part in parts:
-                        try:
-                            ftp.cwd(part)
-                        except:
-                            ftp.mkd(part)
-                            ftp.cwd(part)
+            # Email body
+            body = f"""
+Commission Reconciliation Automation Report
+{"=" * 50}
 
-                # Upload file
-                logger.info(f"Uploading {local_file} as {remote_filename}")
-                with open(local_file, 'rb') as file:
-                    ftp.storbinary(f'STOR {remote_filename}', file)
+Run Date: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}
 
-                logger.info("Upload successful!")
+Summary:
+- Emails Processed: {emails_processed}
+- Total Commission Found This Run: £{total_commission:,.2f}
+
+Files attached:
+1. master_data.xlsx - Your complete commission database
+2. dashboard.html - Interactive dashboard (open in browser)
+
+Next Steps:
+- Open dashboard.html in your browser to view the interactive report
+- Review master_data.xlsx for all commission details
+- Check for any cases marked with green highlighting (recent updates)
+
+{"=" * 50}
+This is an automated report from your Commission Reconciliation System.
+            """
+
+            msg.attach(MIMEText(body, 'plain'))
+
+            # Attach master data Excel file
+            if Path(master_file).exists():
+                logger.info(f"Attaching {master_file}")
+                with open(master_file, 'rb') as f:
+                    part = MIMEBase('application', 'vnd.openxmlformats-officedocument.spreadsheetml.sheet')
+                    part.set_payload(f.read())
+                    encoders.encode_base64(part)
+                    part.add_header('Content-Disposition', f'attachment; filename={os.path.basename(master_file)}')
+                    msg.attach(part)
+
+            # Attach dashboard HTML
+            if Path(dashboard_file).exists():
+                logger.info(f"Attaching {dashboard_file}")
+                with open(dashboard_file, 'rb') as f:
+                    part = MIMEBase('text', 'html')
+                    part.set_payload(f.read())
+                    encoders.encode_base64(part)
+                    part.add_header('Content-Disposition', f'attachment; filename={os.path.basename(dashboard_file)}')
+                    msg.attach(part)
+
+            # Send email
+            logger.info(f"Connecting to {self.smtp_server}:{self.smtp_port}")
+            with smtplib.SMTP(self.smtp_server, self.smtp_port) as server:
+                server.starttls()
+                logger.info("Starting TLS encryption")
+
+                server.login(self.email_user, self.email_pass)
+                logger.info(f"Logged in as {self.email_user}")
+
+                server.send_message(msg)
+                logger.info("✅ Email sent successfully!")
 
         except Exception as e:
-            logger.error(f"FTP upload error: {e}")
+            logger.error(f"Email sending error: {e}")
             raise
 
 
@@ -530,7 +579,7 @@ def main():
     logger.info("=== Starting Financial Reconciliation Automation ===")
 
     # Validate environment variables
-    required_vars = ['EMAIL_USER', 'EMAIL_PASS', 'FTP_HOST', 'FTP_USER', 'FTP_PASS']
+    required_vars = ['EMAIL_USER', 'EMAIL_PASS']
     missing_vars = [var for var in required_vars if not os.environ.get(var)]
 
     if missing_vars:
@@ -541,6 +590,8 @@ def main():
         # Step 1: Fetch emails and attachments
         fetcher = EmailFetcher(EMAIL_USER, EMAIL_PASS)
         attachments = fetcher.fetch_attachments(days_back=DAYS_BACK)
+
+        total_emails = len(attachments['pdfs']) + len(attachments['excels'])
 
         # Step 2: Process data
         processor = DataProcessor(MASTER_DATA_FILE)
@@ -567,11 +618,26 @@ def main():
             f.write(html_content)
         logger.info(f"Dashboard saved to {DASHBOARD_FILE}")
 
-        # Step 4: Upload to FTP
-        uploader = FTPUploader(FTP_HOST, FTP_USER, FTP_PASS, FTP_DIRECTORY)
-        uploader.upload_file(DASHBOARD_FILE, 'index.html')
+        # Step 4: Calculate total commission
+        payment_columns = [col for col in processor.master_data.columns
+                          if 'Fee' in col or 'Payment' in col or 'Proc' in col]
+
+        total_commission = 0.0
+        for col in payment_columns:
+            total_commission += processor.master_data[col].sum() if col in processor.master_data.columns else 0.0
+
+        # Step 5: Email the results
+        sender = EmailSender(EMAIL_USER, EMAIL_PASS)
+        sender.send_report(
+            emails_processed=total_emails,
+            total_commission=total_commission,
+            master_file=MASTER_DATA_FILE,
+            dashboard_file=DASHBOARD_FILE
+        )
 
         logger.info("=== Automation Complete ===")
+        logger.info(f"Emails processed: {total_emails}")
+        logger.info(f"Total commission: £{total_commission:,.2f}")
         logger.info(f"Total updates made: {len(set(processor.updates_made))}")
 
     except Exception as e:

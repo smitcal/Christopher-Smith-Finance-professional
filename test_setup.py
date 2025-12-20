@@ -9,7 +9,7 @@ import sys
 
 def check_env_vars():
     """Check if all required environment variables are set."""
-    required = ['EMAIL_USER', 'EMAIL_PASS', 'FTP_HOST', 'FTP_USER', 'FTP_PASS']
+    required = ['EMAIL_USER', 'EMAIL_PASS']
     missing = []
 
     print("🔍 Checking environment variables...\n")
@@ -32,6 +32,8 @@ def check_env_vars():
         print("\nTo set them, run:")
         for var in missing:
             print(f'export {var}="your-value-here"')
+        print("\n⚠️  IMPORTANT: Use Gmail App Password, not regular password!")
+        print("   Get it from: https://myaccount.google.com/apppasswords")
         return False
 
     print("\n✅ All environment variables are set!")
@@ -64,30 +66,29 @@ def test_gmail_connection():
         return False
 
 
-def test_ftp_connection():
-    """Test FTP connection."""
-    print("\n📤 Testing FTP connection...")
+def test_smtp_connection():
+    """Test SMTP connection for sending emails."""
+    print("\n📤 Testing SMTP connection...")
 
     try:
-        from ftplib import FTP
+        import smtplib
 
-        ftp_host = os.environ.get('FTP_HOST')
-        ftp_user = os.environ.get('FTP_USER')
-        ftp_pass = os.environ.get('FTP_PASS')
+        email_user = os.environ.get('EMAIL_USER')
+        email_pass = os.environ.get('EMAIL_PASS')
 
-        with FTP(ftp_host) as ftp:
-            ftp.login(ftp_user, ftp_pass)
-            current_dir = ftp.pwd()
-            print(f"✅ FTP connected successfully!")
-            print(f"   Current directory: {current_dir}")
+        with smtplib.SMTP('smtp.gmail.com', 587) as server:
+            server.starttls()
+            server.login(email_user, email_pass)
+            print(f"✅ SMTP connected successfully!")
+            print(f"   Ready to send emails to {email_user}")
             return True
 
     except Exception as e:
-        print(f"❌ FTP connection failed: {e}")
+        print(f"❌ SMTP connection failed: {e}")
         print("\n💡 Tips:")
-        print("   1. Verify your FTP credentials with an FTP client (FileZilla, etc.)")
-        print("   2. Check if your hosting requires FTPS instead of FTP")
-        print("   3. Verify the FTP_HOST format (usually ftp.yourdomain.com)")
+        print("   1. Make sure you're using an App Password, not your regular password")
+        print("   2. Get App Password: https://myaccount.google.com/apppasswords")
+        print("   3. The same App Password works for both IMAP and SMTP")
         return False
 
 
@@ -135,8 +136,8 @@ def main():
 
     # Only test connections if env vars are set
     if results['env_vars']:
-        results['gmail'] = test_gmail_connection()
-        results['ftp'] = test_ftp_connection()
+        results['gmail_imap'] = test_gmail_connection()
+        results['gmail_smtp'] = test_smtp_connection()
 
     print("\n" + "=" * 60)
     print("SUMMARY")
