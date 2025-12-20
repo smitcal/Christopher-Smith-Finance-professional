@@ -1,0 +1,54 @@
+name: Financial Reconciliation Automation
+
+on:
+  # Run every 6 hours
+  schedule:
+    - cron: '0 */6 * * *'
+
+  # Allow manual triggering
+  workflow_dispatch:
+
+jobs:
+  reconcile-commissions:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: 'pip'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Run reconciliation script
+        env:
+          EMAIL_USER: ${{ secrets.EMAIL_USER }}
+          EMAIL_PASS: ${{ secrets.EMAIL_PASS }}
+        run: |
+          python main.py
+
+      - name: Upload master data as artifact
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: master-data-${{ github.run_number }}
+          path: |
+            master_data.xlsx
+            dashboard.html
+          retention-days: 30
+
+      - name: Commit updated master data (optional)
+        if: github.event_name == 'workflow_dispatch'
+        run: |
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          git add master_data.xlsx || true
+          git diff --quiet && git diff --staged --quiet || git commit -m "Update master data - $(date +'%Y-%m-%d %H:%M:%S')"
+          git push || true
