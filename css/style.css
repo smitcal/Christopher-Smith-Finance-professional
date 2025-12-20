@@ -519,6 +519,50 @@ section {
     font-style: italic;
 }
 
+.testimonials-box {
+    margin-top: 2rem;
+    padding: 2rem;
+    background: linear-gradient(135deg, var(--light-bg) 0%, #e0f2f1 100%);
+    border-radius: 12px;
+    border-left: 4px solid var(--secondary-color);
+    text-align: center;
+}
+
+.testimonials-content h4 {
+    color: var(--primary-color);
+    font-size: 1.5rem;
+    margin-bottom: 0.75rem;
+}
+
+.testimonials-content h4 i {
+    color: #fbbf24;
+}
+
+.testimonials-content p {
+    color: var(--text-light);
+    margin-bottom: 1.5rem;
+    font-size: 1.05rem;
+}
+
+.btn-testimonials {
+    background-color: var(--secondary-color);
+    color: var(--white);
+    padding: 0.875rem 2rem;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 600;
+    display: inline-block;
+    transition: all 0.3s ease;
+    border: 2px solid var(--secondary-color);
+}
+
+.btn-testimonials:hover {
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(20, 184, 166, 0.3);
+}
+
 /* =====================
    Skills Section
    ===================== */

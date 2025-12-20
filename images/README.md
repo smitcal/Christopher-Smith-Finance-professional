@@ -1,32 +1,24 @@
 # Images Directory
 
-## Required Screenshots
+## Required Screenshot
 
-### 1. ops-wins-tracker.png
+### ops-wins-tracker.png
 **Location:** Under NRise section
-**Description:** A blurred/anonymized screenshot of the "Ops Wins" strategic framework tracker dashboard.
-**Recommended size:** 1200x800px or similar aspect ratio
-**Format:** PNG or JPG
+**Description:** The Ops Wins strategic framework tracker screenshot you provided.
+**Current Status:** ✅ Screenshot provided - needs to be uploaded to this directory
+**Format:** PNG
 
-To add this image:
-1. Take a screenshot of your Ops Wins tracker
-2. Blur or anonymize any sensitive information
-3. Save as `ops-wins-tracker.png`
-4. Place in this `/images/` directory
+**To add this image:**
+1. Save the Ops Wins tracker screenshot you provided as `ops-wins-tracker.png`
+2. Upload it to this `/images/` directory in your GitHub repository
+3. The image will automatically appear on your website
 
----
-
-### 2. google-reviews.png
-**Location:** Under Chris Smith Mortgages section
-**Description:** Screenshot showing Google Review score (5 stars) or SEO traffic growth graph.
-**Recommended size:** 1200x800px or similar aspect ratio
-**Format:** PNG or JPG
-
-To add this image:
-1. Take a screenshot of your Google Reviews or Google Analytics SEO data
-2. Save as `google-reviews.png`
-3. Place in this `/images/` directory
+The screenshot shows:
+- Talent Framework Overhaul (100% Hiring Success Rate)
+- SharePoint Knowledge Base (Onboarding speed +30%)
+- Timesheet Automation (Manual admin reduced 15 hrs/week)
+- Weekly Wins Culture (Engagement score 9.5/10)
 
 ---
 
-**Note:** Until you add the actual images, placeholder broken image icons will appear on the website. The site will automatically display the images once you upload them to this directory.
+**Note:** The Chris Smith Mortgages testimonials section now links directly to your testimonials page at https://www.chrissmithmortgages.com/testimonials, so no screenshot is needed there.
