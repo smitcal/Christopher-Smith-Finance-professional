@@ -35,7 +35,8 @@ MASTER_DATA_FILE = 'master_data.xlsx'
 DASHBOARD_FILE = 'dashboard.html'
 
 # Email search configuration
-DAYS_BACK = 7
+DAYS_BACK_FIRST_RUN = 365  # 12 months for initial run
+DAYS_BACK_REGULAR = 7      # 7 days for regular runs
 IMAP_SERVER = 'imap.gmail.com'
 SMTP_SERVER = 'smtp.gmail.com'
 SMTP_PORT = 587
@@ -722,9 +723,18 @@ def main():
         raise ValueError("Missing required environment variables")
 
     try:
+        # Determine lookback period: 365 days for first run, 7 days for regular runs
+        is_first_run = not Path(MASTER_DATA_FILE).exists()
+        days_back = DAYS_BACK_FIRST_RUN if is_first_run else DAYS_BACK_REGULAR
+
+        if is_first_run:
+            logger.info(f"First run detected - scanning last {days_back} days (12 months)")
+        else:
+            logger.info(f"Regular run - scanning last {days_back} days")
+
         # Step 1: Fetch emails and attachments
         fetcher = EmailFetcher(EMAIL_USER, EMAIL_PASS)
-        attachments = fetcher.fetch_attachments(days_back=DAYS_BACK)
+        attachments = fetcher.fetch_attachments(days_back=days_back)
 
         total_emails = len(attachments['pdfs']) + len(attachments['excels'])
 
