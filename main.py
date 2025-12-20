@@ -71,22 +71,22 @@ class EmailFetcher:
                         filename = att.filename.lower()
 
                         # Check for PDFs (Commission Statements)
+                        # Accept ALL PDFs - includes: statement, payment, commission files
                         if filename.endswith('.pdf'):
-                            if 'commission' in filename or 'statement' in filename:
-                                logger.info(f"Found PDF: {att.filename}")
-                                attachments['pdfs'].append({
-                                    'filename': att.filename,
-                                    'data': att.payload
-                                })
+                            logger.info(f"Found PDF: {att.filename}")
+                            attachments['pdfs'].append({
+                                'filename': att.filename,
+                                'data': att.payload
+                            })
 
                         # Check for Excel/CSV files (Introducer Reports)
+                        # Accept ALL Excel/CSV files
                         elif filename.endswith(('.xlsx', '.xls', '.csv')):
-                            if 'introducer' in filename or 'report' in filename:
-                                logger.info(f"Found Excel/CSV: {att.filename}")
-                                attachments['excels'].append({
-                                    'filename': att.filename,
-                                    'data': att.payload
-                                })
+                            logger.info(f"Found Excel/CSV: {att.filename}")
+                            attachments['excels'].append({
+                                'filename': att.filename,
+                                'data': att.payload
+                            })
 
                 logger.info(f"Found {len(attachments['pdfs'])} PDFs and {len(attachments['excels'])} Excel files")
                 return attachments
