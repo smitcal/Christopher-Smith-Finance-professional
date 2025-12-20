@@ -1,425 +1,342 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<title>W3.CSS Template</title>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="font.css"> <!-- Link font.css before W3.CSS -->
-<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Christopher Smith | Chief of Staff & Strategic Executive Leader</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
-<style>
-body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", sans-serif}
-
-body, html {
-  height: 100%;
-  line-height: 1.8;
-  margin: 0;
-}
-
-/* Full height image header */
-.bgimg-1 {
-  background-position: center;
-  background-size: cover;
-  background-image: url("mitchell-luo-z1c9juteR5c-unsplash (1).jpg");
-  min-height: 100%;
-}
-
-.w3-bar .w3-button {
-  padding: 16px;
-}
-</style>
-</head>
-<body>
-
-<!-- Navbar (sit on top) -->
-<div class="w3-top"> 
-  <div class="w3-bar w3-white w3-card" id="myNavbar">
-    <a href="#home" class="w3-bar-item w3-button w3-wide">LOGO</a>
-    <!-- Right-sided navbar links -->
-    <div class="w3-right w3-hide-small">
-      <a href="#about" class="w3-bar-item w3-button">Home</a>
-      <a href="#team" class="w3-bar-item w3-button"><i class="fa fa-bars"></i>Blog</a>
-      <a href="#work" class="w3-bar-item w3-button"><i class="fa fa-th"></i> Calculators</a>
-      <a href="#pricing" class="w3-bar-item w3-button"><i class="	fa fa-user"></i> About</a>
-      <a href="#contact" class="w3-bar-item w3-button"><i class="fa fa-envelope"></i> CONTACT</a>
-    </div>
-    <!-- Hide right-floated links on small screens and replace them with a menu icon -->
-    <a href="javascript:void(0)" class="w3-bar-item w3-button w3-right w3-hide-large w3-hide-medium" onclick="w3_open()">
-      <i class="fa fa-bars"></i>
-    </a>
-  </div>
-</div>
-
-<!-- Sidebar on small screens when clicking the menu icon -->
-<nav class="w3-sidebar w3-bar-block w3-black w3-card w3-animate-left w3-hide-medium w3-hide-large" style="display:none" id="mySidebar">
-  <a href="javascript:void(0)" onclick="w3_close()" class="w3-bar-item w3-button w3-large w3-padding-16">Close ×</a>
-  <a href="#about" onclick="w3_close()" class="w3-bar-item w3-button">HOME</a>
-  <a href="#team" onclick="w3_close()" class="w3-bar-item w3-button">GUIDES</a>
-  <a href="#work" onclick="w3_close()" class="w3-bar-item w3-button">CALCULATORS</a>
-  <a href="#pricing" onclick="w3_close()" class="w3-bar-item w3-button">ABOUT</a>
-  <a href="#contact" onclick="w3_close()" class="w3-bar-item w3-button">CONTACT</a>
-</nav>
-
-<!-- Header with full-height image -->
-<header class="bgimg-1 w3-display-container w3-grayscale-min" id="home">
-  <div class="w3-display-left w3-text-white" style="padding: 48px">
-    <span class="w3-jumbo w3-hide-small">Labyrinth Mortgages</span><br>
-    <span class="w3-xxlarge w3-hide-large w3-hide-medium">Labyrinth Finance</span><br>
-    <span class="w3-xlarge">Guiding you to your home.</span>
- <p>
-
-<!-- Link to google review and star build-->
-  <a href="https://www.google.com/maps/place/Christopher+Smith+Mortgage+Broker+Specialising+in+Self-Employed,+Bad+Credit+Mortgages,+and+other+Complex+Mortgages/@53.4994624,-2.5031566,17z/data=!4m6!3m5!1s0x602f8598fcd86965:0x30ee059fdf8beb19!8m2!3d53.4994624!4d-2.5005763!16s%2Fg%2F11s5mmmm77?entry=ttu">
-    <i class="fa fa-star" style="color: gold;"></i>
-    <i class="fa fa-star" style="color: gold;"></i>
-    <i class="fa fa-star" style="color: gold;"></i>
-    <i class="fa fa-star" style="color: gold;"></i>
-    <i class="fa fa-star" style="color: gold;"></i>
-    Google
-  </a>
-</p>
-</a>
-  </div>
-
-<style>
-  /* Custom styles for the Google link */
-  .google-link {
-    font-size: 52px;
-    font-weight: bold;
-    color: white;
-    text-decoration: none;
-    background-color: transparent; /* Yellow/Gold color for the stars */
-    padding: 5px 10px; /* Add some padding around the link */
-    border-radius: 5px; /* Add rounded corners */
-  }
-
-  .google-link img {
-    vertical-align: middle; /* To vertically align the stars with the text */
-    margin-right: 5px; /* Add some space between the stars and the text */
-  }
-</style>
-
-<!-- Link to google reviews -->
-<a href="https://www.google.com/maps/place/Christopher+Smith+Mortgage+Broker+Specialising+in+Self-Employed,+Bad+Credit+Mortgages,+and+other+Complex+Mortgages/@53.4994624,-2.5031566,17z/data=!4m17!1m8!3m7!1s0x602f8598fcd86965:0x30ee059fdf8beb19!2sChristopher+Smith+Mortgage+Broker+Specialising+in+Self-Employed,+Bad+Credit+Mortgages,+and+other+Complex+Mortgages!8m2!3d53.4994624!4d-2.5005763!10e5!16s%2Fg%2F11s5mmmm77!3m7!1s0x602f8598fcd86965:0x30ee059fdf8beb19!8m2!3d53.4994624!4d-2.5005763!9m1!1b1!16s%2Fg%2F11s5mmmm77?entry=ttu" target="_blank">
-  <img src="https://www.gstatic.com/webp/gallery/5.jpg" alt="Google 5-star rating" width="50" height="50">
-  Google
-</a>
-
-
-<!-- Contact Form on the Right -->
-<div class="w3-display-right w3-display-container w3-padding" style="background-color: rgba(255, 255, 255, 0.8); max-width: 500px; right: calc(10% + 50px);">
-  <h3 class="w3-center">Request a Callback</h3>
-  <form action="mailto:chris@moneymatters-chorley.co.uk" method="post" enctype="text/plain">
-    <div class="w3-section">
-      <label for="name"><b>Name:</b></label>
-      <input type="text" placeholder="Name - JohnDoe" name="name" required style="width: 100%;">
-    </div>
-    <div class="w3-section">
-      <label for="email"><b>Email:</b></label>
-      <input type="email" placeholder="Email - johndoe@email.com" name="email" required style="width: 100%;">
-    </div>
-    <div class="w3-section">
-      <label for="subject"><b>Subject:</b></label>
-      <select name="subject" required style="width: 100%;">
-        <option value="purchase">Purchase</option>
-        <option value="remortgage">Remortgage</option>
-        <option value="equity_release">Equity Release</option>
-        <option value="commercial">Commercial</option>
-      </select>
-    </div>
-    <div class="w3-section">
-      <label for="query"><b>Message:</b></label>
-      <!-- Increase the height of the textarea -->
-      <textarea placeholder="I am looking to purchase a property, and I have bad credit/self-employed, etc." name="query" required style="width: 100%; height: 12em;"></textarea>
-    </div>
-    <div class="w3-section">
-      <button type="submit">Submit</button>
-    </div>
-  </form>
-  <div class="w3-section" style="display: none;" id="thank-you-message">
-    Thank you for submitting your query, someone will contact you shortly.
-  </div>
-</div>
-
-  </div>
-
-  </div>
-</div>
-</header>
-</header>
-
-<!-- Google Review widget -->
-<script src="https://static.elfsight.com/platform/platform.js" data-use-service-core defer></script>
-<div class="elfsight-app-60a8a734-83ed-48ca-9b64-78e10bff59a2"></div>
-
-
-
-<!-- Promo Section - "We know design" -->
-<div class="w3-container w3-light-grey" style="padding:128px 16px">
-  <div class="w3-row-padding">
-    <div class="w3-col m6">
-      <h3>We know design.</h3>
-      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore.</p>
-      <p><a href="#work" class="w3-button w3-black"><i class="fa fa-th"> </i> View Our Works</a></p>
-    </div>
-    <div class="w3-col m6">
-      <img class="w3-image w3-round-large" src="workshop.jpg" alt="Workshop">
-    </div>
-  </div>
-</div>
-
-<!-- Team Section -->
-<div class="w3-container" style="padding:128px 16px" id="team">
-  <h3 class="w3-center">THE TEAM</h3>
-  <p class="w3-center w3-large">The ones who runs this company</p>
-  <div class="w3-row-padding w3-grayscale" style="margin-top:64px">
-    <div class="w3-col l3 m6 w3-margin-bottom">
-      <div class="w3-card">
-        <img src="team1.jpg" alt="John" style="width:100%">
-        <div class="w3-container">
-          <h3>John Doe</h3>
-          <p class="w3-opacity">CEO & Founder</p>
-          <p>Phasellus eget enim eu lectus faucibus vestibulum. Suspendisse sodales pellentesque elementum.</p>
-          <p><button class="w3-button w3-light-grey w3-block"><i class="fa fa-envelope"></i> Contact</button></p>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-brand">Christopher Smith</div>
+            <ul class="nav-menu">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#expertise">Expertise</a></li>
+                <li><a href="#experience">Experience</a></li>
+                <li><a href="#skills">Skills</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+            <div class="mobile-menu-toggle">
+                <i class="fas fa-bars"></i>
+            </div>
         </div>
-      </div>
-    </div>
-    <div class="w3-col l3 m6 w3-margin-bottom">
-      <div class="w3-card">
-        <img src="team2.jpg" alt="Jane" style="width:100%">
-        <div class="w3-container">
-          <h3>Jane Doe</h3>
-          <p class="w3-opacity">Architect</p>
-          <p>Phasellus eget enim eu lectus faucibus vestibulum. Suspendisse sodales pellentesque elementum.</p>
-          <p><button class="w3-button w3-light-grey w3-block"><i class="fa fa-envelope"></i> Contact</button></p>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="hero-overlay"></div>
+        <div class="container hero-content">
+            <h1 class="hero-title">Christopher Smith</h1>
+            <h2 class="hero-subtitle">Chief of Staff | Strategic Executive Leader</h2>
+            <p class="hero-tagline">Driving strategic alignment, governance, and cultural excellence in high-stakes environments</p>
+            <div class="hero-cta">
+                <a href="#contact" class="btn btn-primary">Get In Touch</a>
+                <a href="#experience" class="btn btn-secondary">View Experience</a>
+            </div>
         </div>
-      </div>
-    </div>
-    <div class="w3-col l3 m6 w3-margin-bottom">
-      <div class="w3-card">
-        <img src="team3.jpg" alt="Mike" style="width:100%">
-        <div class="w3-container">
-          <h3>Mike Ross</h3>
-          <p class="w3-opacity">Designer</p>
-          <p>Phasellus eget enim eu lectus faucibus vestibulum. Suspendisse sodales pellentesque elementum.</p>
-          <p><button class="w3-button w3-light-grey w3-block"><i class="fa fa-envelope"></i> Contact</button></p>
+    </section>
+
+    <!-- Professional Summary -->
+    <section id="about" class="section-light">
+        <div class="container">
+            <h2 class="section-title">Professional Summary</h2>
+            <div class="summary-content">
+                <p class="summary-text">
+                    A dynamic Executive Leader with a unique blend of corporate governance background (NatWest) and agile operational leadership (NRise). Expert in "Chief of Staff" functions: facilitating executive decision-making, leading cross-functional change, and embedding culture. Proven ability to bridge the gap between technical teams, finance, and the Board.
+                </p>
+                <p class="summary-text">
+                    Passionate about people development, coaching, and creating psychological safety in high-performance teams. Known for turning strategic ideas into practical, scalable systems that drive efficiency, profitability, and customer experience.
+                </p>
+            </div>
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-number">100%</div>
+                    <div class="stat-label">Long-term Hire Success Rate</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">8+</div>
+                    <div class="stat-label">Years Executive Experience</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">100%</div>
+                    <div class="stat-label">Compliance Record</div>
+                </div>
+            </div>
         </div>
-      </div>
-    </div>
-    <div class="w3-col l3 m6 w3-margin-bottom">
-      <div class="w3-card">
-        <img src="team4.jpg" alt="Dan" style="width:100%">
-        <div class="w3-container">
-          <h3>Dan Star</h3>
-          <p class="w3-opacity">Architect</p>
-          <p>Phasellus eget enim eu lectus faucibus vestibulum. Suspendisse sodales pellentesque elementum.</p>
-          <p><button class="w3-button w3-light-grey w3-block"><i class="fa fa-envelope"></i> Contact</button></p>
+    </section>
+
+    <!-- Key Expertise -->
+    <section id="expertise" class="section-dark">
+        <div class="container">
+            <h2 class="section-title">Key Expertise</h2>
+            <div class="expertise-grid">
+                <div class="expertise-card">
+                    <div class="expertise-icon">
+                        <i class="fas fa-bullseye"></i>
+                    </div>
+                    <h3>Strategic Alignment</h3>
+                    <ul>
+                        <li>OKR/KPI Tracking</li>
+                        <li>Executive Reporting</li>
+                        <li>Board Liaison</li>
+                    </ul>
+                </div>
+                <div class="expertise-card">
+                    <div class="expertise-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <h3>People & Culture</h3>
+                    <ul>
+                        <li>Change Management</li>
+                        <li>Coaching Frameworks</li>
+                        <li>Internal Communications</li>
+                    </ul>
+                </div>
+                <div class="expertise-card">
+                    <div class="expertise-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h3>Governance & Risk</h3>
+                    <ul>
+                        <li>FCA/GDPR Standards</li>
+                        <li>Audit Management</li>
+                        <li>Policy Design</li>
+                    </ul>
+                </div>
+                <div class="expertise-card">
+                    <div class="expertise-icon">
+                        <i class="fas fa-handshake"></i>
+                    </div>
+                    <h3>Stakeholder Management</h3>
+                    <ul>
+                        <li>Cross-functional Collaboration</li>
+                        <li>Finance, Engineering, Sales</li>
+                        <li>Executive Partnership</li>
+                    </ul>
+                </div>
+            </div>
         </div>
-      </div>
-    </div>
-  </div>
-</div>
+    </section>
 
-<!-- Promo Section "Statistics" -->
-<div class="w3-container w3-row w3-center w3-dark-grey w3-padding-64">
-  <div class="w3-quarter">
-    <span class="w3-xxlarge">14+</span>
-    <br>Partners
-  </div>
-  <div class="w3-quarter">
-    <span class="w3-xxlarge">55+</span>
-    <br>Projects Done
-  </div>
-  <div class="w3-quarter">
-    <span class="w3-xxlarge">89+</span>
-    <br>Happy Clients
-  </div>
-  <div class="w3-quarter">
-    <span class="w3-xxlarge">150+</span>
-    <br>Meetings
-  </div>
-</div>
+    <!-- Experience -->
+    <section id="experience" class="section-light">
+        <div class="container">
+            <h2 class="section-title">Executive Experience</h2>
+            <div class="timeline">
+                <!-- NRise -->
+                <div class="timeline-item">
+                    <div class="timeline-marker"></div>
+                    <div class="timeline-content">
+                        <div class="timeline-header">
+                            <h3>Operations Director / COO</h3>
+                            <span class="company">NRise Ltd</span>
+                        </div>
+                        <div class="timeline-meta">
+                            <span class="date">July 2023 – Present</span>
+                            <span class="location">Nationwide</span>
+                        </div>
+                        <p class="role-description">Member of the Executive Leadership Team, serving as the strategic integrator between the Managing Director and the wider business.</p>
+                        <ul class="achievements">
+                            <li><strong>Executive Partnership:</strong> Partnered with the CEO to translate long-term vision into actionable roadmaps. Implemented the "Ops Wins" strategic framework to ensure all departments remained aligned on quarterly objectives.</li>
+                            <li><strong>Organisational Design:</strong> Restructured project ownership frameworks, empowering engineering staff to take accountability for timelines, surfacing support needs earlier in the delivery cycle.</li>
+                            <li><strong>People & Culture Strategy:</strong> Designed the "Weekly Wins" recognition programme to improve internal communication and morale, successfully driving engagement across remote and field-based teams.</li>
+                            <li><strong>Governance & Employee Relations:</strong> Successfully managed sensitive employee compliance cases, ensuring strict alignment with the staff handbook and demonstrating fair, transparent governance.</li>
+                            <li><strong>Knowledge Management:</strong> Launched a centralised SharePoint knowledge base (The Wiki) to standardise onboarding and ensure consistent cultural alignment for new hires.</li>
+                            <li><strong>Data-Driven Decision Making:</strong> Built early-stage KPI trackers to monitor engagement metrics and automation savings, supporting the Board with data-backed insights.</li>
+                            <li><strong>Strategic Talent Acquisition:</strong> Redefined the hiring strategy to value personality and cultural alignment over raw experience. This shift transformed recruitment outcomes, taking the long-term hire success rate from 25% to 100%.</li>
+                        </ul>
+                    </div>
+                </div>
 
-<!-- Work Section -->
-<div class="w3-container" style="padding:128px 16px" id="work">
-  <h3 class="w3-center">OUR WORK</h3>
-  <p class="w3-center w3-large">What we've done for people</p>
+                <!-- Chris Smith Mortgages -->
+                <div class="timeline-item">
+                    <div class="timeline-marker"></div>
+                    <div class="timeline-content">
+                        <div class="timeline-header">
+                            <h3>Founder and Principal</h3>
+                            <span class="company">Chris Smith Mortgages</span>
+                        </div>
+                        <div class="timeline-meta">
+                            <span class="date">April 2022 – Present</span>
+                            <span class="location">North-West</span>
+                        </div>
+                        <p class="role-description">Founded a boutique advisory firm, focusing on digital acquisition and regulatory compliance (Now passive to supply leads).</p>
+                        <ul class="achievements">
+                            <li><strong>Regulatory Oversight:</strong> Managed all FCA compliance obligations, ensuring robust advice trails and data protection standards were met.</li>
+                            <li><strong>Strategic Marketing:</strong> Leveraged SEO and inbound marketing strategies to build a sustainable pipeline without reliance on external lead vendors.</li>
+                        </ul>
+                    </div>
+                </div>
 
-  <!-- Image grid -->
-  <div class="w3-row-padding" style="margin-top:64px">
-    <div class="w3-half">
-      <img src="work1.jpg" style="width:100%">
-      <img src="work2.jpg" style="width:100%">
-      <img src="work3.jpg" style="width:100%">
-    </div>
+                <!-- Wiseone -->
+                <div class="timeline-item">
+                    <div class="timeline-marker"></div>
+                    <div class="timeline-content">
+                        <div class="timeline-header">
+                            <h3>Head of Complex Lending Desk / Process Lead</h3>
+                            <span class="company">Wiseone Mortgages</span>
+                        </div>
+                        <div class="timeline-meta">
+                            <span class="date">September 2020 – April 2022</span>
+                            <span class="location">Lymm, Cheshire</span>
+                        </div>
+                        <p class="role-description">Combined high-performance advisory work with a mandate to improve team standards and regulatory adherence.</p>
+                        <ul class="achievements">
+                            <li><strong>Quality Assurance Leadership:</strong> Designed a "Safe-Check" compliance framework, sharing best practices with the wider advisory team to ensure files met strict FCA requirements before submission.</li>
+                            <li><strong>Training & Development:</strong> Mentored team members on complex case handling, directly improving the team's ability to navigate adverse credit scenarios and boosting collective efficiency by 14%.</li>
+                            <li><strong>Performance Excellence:</strong> Maintained a 100% file compliance record while achieving top-tier conversion rates, modelling the balance between commercial drive and risk management.</li>
+                        </ul>
+                    </div>
+                </div>
 
-    <div class="w3-half">
-      <img src="work4.jpg" style="width:100%">
-      <img src="work5.jpg" style="width:100%">
-      <img src="work6.jpg" style="width:100%">
-    </div>
-  </div>
+                <!-- NatWest -->
+                <div class="timeline-item">
+                    <div class="timeline-marker"></div>
+                    <div class="timeline-content">
+                        <div class="timeline-header">
+                            <h3>Personal Mortgage Advisor</h3>
+                            <span class="company">NatWest</span>
+                        </div>
+                        <div class="timeline-meta">
+                            <span class="date">October 2015 – July 2020</span>
+                            <span class="location">Chorlton-Cum-Hardy, Manchester</span>
+                        </div>
+                        <ul class="achievements">
+                            <li><strong>Risk Management:</strong> Operated within a highly regulated Tier-1 banking environment, ensuring rigorous adherence to credit risk policies and lending criteria.</li>
+                            <li><strong>Customer Experience:</strong> Maintained high customer satisfaction scores while navigating complex financial assessments and "Right First Time" documentation standards.</li>
+                            <li><strong>Communication:</strong> Translated complex financial products into clear, accessible language for diverse stakeholders.</li>
+                        </ul>
+                    </div>
+                </div>
 
-  <!-- More Projects Button -->
-  <div class="w3-center w3-padding-32">
-    <div class="w3-bar">
-      <a href="#" class="w3-bar-item w3-button w3-hover-black">« Prev</a>
-      <a href="#" class="w3-bar-item w3-button w3-hover-black">1</a>
-      <a href="#" class="w3-bar-item w3-button w3-hover-black">2</a>
-      <a href="#" class="w3-bar-item w3-button w3-hover-black">3</a>
-      <a href="#" class="w3-bar-item w3-button w3-hover-black">4</a>
-      <a href="#" class="w3-bar-item w3-button w3-hover-black">Next »</a>
-    </div>
-  </div>
-</div>
+                <!-- Brytannic -->
+                <div class="timeline-item">
+                    <div class="timeline-marker"></div>
+                    <div class="timeline-content">
+                        <div class="timeline-header">
+                            <h3>Broker and Intermediary Trainer</h3>
+                            <span class="company">Brytannic Extra Finance</span>
+                        </div>
+                        <div class="timeline-meta">
+                            <span class="date">June 2015 – October 2015</span>
+                            <span class="location">Whitefield, Manchester</span>
+                        </div>
+                        <p class="role-description">Facilitated training workshops for external financial advisors to ensure alignment with lending criteria and service standards.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
-<!-- Skills Section -->
-<div class="w3-container w3-light-grey w3-padding-64">
-  <div class="w3-row-padding">
-    <div class="w3-col m6">
-      <h3>Our Skills.</h3>
-      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore.</p>
-      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore.</p>
-    </div>
-    <div class="w3-col m6">
-      <p class="w3-wide"><i class="fa fa-camera w3-margin-right"></i>Photography</p>
-      <div class="w3-progress-container w3-grey">
-        <div class="w3-progressbar w3-red" style="width:90%"></div>
-      </div>
-      <p class="w3-wide"><i class="fa fa-desktop w3-margin-right"></i>Web Design</p>
-      <div class="w3-progress-container w3-grey">
-        <div class="w3-progressbar w3-red" style="width:85%"></div>
-      </div>
-      <p class="w3-wide"><i class="fa fa-photo w3-margin-right"></i>Photoshop</p>
-      <div class="w3-progress-container w3-grey">
-        <div class="w3-progressbar w3-red" style="width:75%"></div>
-      </div>
-    </div>
-  </div>
-</div>
+    <!-- Skills -->
+    <section id="skills" class="section-dark">
+        <div class="container">
+            <h2 class="section-title">Core Competencies</h2>
+            <div class="skills-grid">
+                <div class="skill-category">
+                    <h3><i class="fas fa-chart-line"></i> Operational Leadership & Business Strategy</h3>
+                    <ul>
+                        <li>Strategic Leadership & Executive Partnership</li>
+                        <li>End-to-End Operations Oversight</li>
+                        <li>Commercial & Financial Management (P&L, Budgeting)</li>
+                        <li>Systems & Process Design</li>
+                        <li>Data-Driven Decision Making & KPI Tracking</li>
+                    </ul>
+                </div>
+                <div class="skill-category">
+                    <h3><i class="fas fa-users-cog"></i> Stakeholder & Team Leadership</h3>
+                    <ul>
+                        <li>Cross-Functional Collaboration</li>
+                        <li>Coaching & Development</li>
+                        <li>Change Management</li>
+                        <li>Stakeholder Relationship Management</li>
+                        <li>Recruitment & Onboarding Framework Development</li>
+                    </ul>
+                </div>
+                <div class="skill-category">
+                    <h3><i class="fas fa-clipboard-check"></i> Operational Excellence & Compliance</h3>
+                    <ul>
+                        <li>GDPR, H&S, and FCA Policy Alignment</li>
+                        <li>Risk & Governance Frameworks</li>
+                        <li>Quality & Accuracy Standards</li>
+                        <li>Continuous Improvement & Lean Principles</li>
+                        <li>Audit Management (100% Success Rate)</li>
+                    </ul>
+                </div>
+                <div class="skill-category">
+                    <h3><i class="fas fa-briefcase"></i> Customer & Business Development</h3>
+                    <ul>
+                        <li>Client & Stakeholder Engagement</li>
+                        <li>Business Growth & Scaling</li>
+                        <li>SEO & Inbound Marketing</li>
+                        <li>Executive Communication</li>
+                        <li>Project Delivery & Time Management</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
 
-<!-- Pricing Section -->
-<div class="w3-container w3-center w3-dark-grey" style="padding:128px 16px" id="pricing">
-  <h3>PRICING</h3>
-  <p class="w3-large">Choose a pricing plan that fits your needs</p>
-  <div class="w3-row-padding" style="margin-top:64px">
-    <div class="w3-third w3-section">
-      <ul class="w3-ul w3-white w3-hover-shadow">
-        <li class="w3-dark-grey w3-xlarge w3-padding-32">Basic</li>
-        <li class="w3-padding-16">Web Design</li>
-        <li class="w3-padding-16">Photography</li>
-        <li class="w3-padding-16">5GB Storage</li>
-        <li class="w3-padding-16">Mail Support</li>
-        <li class="w3-padding-16">
-          <h2>$ 10</h2>
-          <span class="w3-opacity">per month</span>
-        </li>
-        <li class="w3-light-grey w3-padding-24">
-          <button class="w3-button w3-white w3-padding-large w3-hover-black">Sign Up</button>
-        </li>
-      </ul>
-    </div>
-    <div class="w3-third">
-      <ul class="w3-ul w3-white w3-hover-shadow">
-        <li class="w3-red w3-xlarge w3-padding-48">Pro</li>
-        <li class="w3-padding-16">Web Design</li>
-        <li class="w3-padding-16">Photography</li>
-        <li class="w3-padding-16">50GB Storage</li>
-        <li class="w3-padding-16">Endless Support</li>
-        <li class="w3-padding-16">
-          <h2>$ 25</h2>
-          <span class="w3-opacity">per month</span>
-        </li>
-        <li class="w3-light-grey w3-padding-24">
-          <button class="w3-button w3-white w3-padding-large w3-hover-black">Sign Up</button>
-        </li>
-      </ul>
-    </div>
-    <div class="w3-third w3-section">
-      <ul class="w3-ul w3-white w3-hover-shadow">
-        <li class="w3-dark-grey w3-xlarge w3-padding-32">Premium</li>
-        <li class="w3-padding-16">Web Design</li>
-        <li class="w3-padding-16">Photography</li>
-        <li class="w3-padding-16">Unlimited</li>
-        <li class="w3-padding-16">Endless Support</li>
-        <li class="w3-padding-16">
-          <h2>$ 50</h2>
-          <span class="w3-opacity">per month</span>
-        </li>
-        <li class="w3-light-grey w3-padding-24">
-          <button class="w3-button w3-white w3-padding-large w3-hover-black">Sign Up</button>
-        </li>
-      </ul>
-    </div>
-  </div>
-</div>
+    <!-- Contact -->
+    <section id="contact" class="section-light">
+        <div class="container">
+            <h2 class="section-title">Get In Touch</h2>
+            <div class="contact-content">
+                <div class="contact-info">
+                    <p class="contact-intro">Interested in discussing strategic leadership opportunities or operational transformation? I'd be happy to connect.</p>
+                    <div class="contact-details">
+                        <div class="contact-item">
+                            <i class="fas fa-phone"></i>
+                            <a href="tel:07794933380">07794 933 380</a>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fas fa-envelope"></i>
+                            <a href="mailto:chrisrsmith28@yahoo.co.uk">chrisrsmith28@yahoo.co.uk</a>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span>North West UK</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="contact-form-wrapper">
+                    <form class="contact-form" action="mailto:chrisrsmith28@yahoo.co.uk" method="post" enctype="text/plain">
+                        <div class="form-group">
+                            <label for="name">Name</label>
+                            <input type="text" id="name" name="name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="email" id="email" name="email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="subject">Subject</label>
+                            <input type="text" id="subject" name="subject" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="message">Message</label>
+                            <textarea id="message" name="message" rows="5" required></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Send Message</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
 
-<!-- Contact Section -->
-<div class="w3-container w3-light-grey" style="padding:128px 16px" id="contact">
-  <h3 class="w3-center">CONTACT</h3>
-  <p class="w3-center w3-large">Get in touch with us</p>
-  <div class="w3-row-padding" style="margin-top:64px">
-    <div class="w3-half">
-      <p><i class="fa fa-map-marker fa-fw w3-xxlarge w3-margin-right"></i> New York, US</p>
-      <p><i class="fa fa-phone fa-fw w3-xxlarge w3-margin-right"></i> Phone: +1 555555</p>
-      <p><i class="fa fa-envelope fa-fw w3-xxlarge w3-margin-right"> </i> Email: mail@mail.com</p>
-      <br>
-      <form action="/action_page.php" target="_blank">
-        <p><input class="w3-input w3-border" type="text" placeholder="Name" required name="Name"></p>
-        <p><input class="w3-input w3-border" type="text" placeholder="Email" required name="Email"></p>
-        <p><input class="w3-input w3-border" type="text" placeholder="Subject" required name="Subject"></p>
-        <p><input class="w3-input w3-border" type="text" placeholder="Message" required name="Message"></p>
-        <p>
-          <button class="w3-button w3-black" type="submit">
-            <i class="fa fa-paper-plane"></i> SEND MESSAGE
-          </button>
-        </p>
-      </form>
-    </div>
-    <div class="w3-half">
-      <!-- Add Google Maps -->
-      <div class="w3-container w3-greyscale" style="height:400px;"></div>
-    </div>
-  </div>
-</div>
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2025 Christopher Smith. All rights reserved.</p>
+            <p class="footer-tagline">Strategic Executive Leadership | Operations Excellence | Cultural Transformation</p>
+        </div>
+    </footer>
 
-<!-- Footer -->
-<footer class="w3-center w3-black w3-padding-64">
-  <a href="#home" class="w3-button w3-light-grey"><i class="fa fa-arrow-up w3-margin-right"></i>To the top</a>
-  <div class="w3-xlarge w3-section">
-    <i class="fa fa-facebook-official w3-hover-opacity"></i>
-    <i class="fa fa-instagram w3-hover-opacity"></i>
-    <i class="fa fa-snapchat w3-hover-opacity"></i>
-    <i class="fa fa-pinterest-p w3-hover-opacity"></i>
-    <i class="fa fa-twitter w3-hover-opacity"></i>
-    <i class="fa fa-linkedin w3-hover-opacity"></i>
-  </div>
-  <p>Powered by ChatGPT | © 2023 YourWebsite. All rights reserved.</p>
-</footer>
-
-<script>
-// Modal Image Gallery
-function onClick(element) {
-  document.getElementById("img01").src = element.src;
-  document.getElementById("modal01").style.display = "block";
-}
-
-// Toggle between showing and hiding the sidebar when clicking the menu icon
-var mySidebar = document.getElementById("mySidebar");
-
-function w3_open() {
-  if (mySidebar.style.display === 'block') {
-    mySidebar.style.display = 'none';
-  } else {
-    mySidebar.style.display = 'block';
-  }
-}
-
-// Close the sidebar with the close button
-function w3_close() {
-    mySidebar.style.display = "none";
-}
-</script>
+    <script src="js/main.js"></script>
+</body>
+</html>
