@@ -70,6 +70,11 @@ class EmailFetcher:
                     for att in msg.attachments:
                         filename = att.filename.lower()
 
+                        # Skip our own output files
+                        if filename in ['master_data.xlsx', 'dashboard.html', 'commission_dashboard_private.html']:
+                            logger.info(f"Skipping output file: {att.filename}")
+                            continue
+
                         # Check for PDFs (Commission Statements)
                         # Accept ALL PDFs - includes: statement, payment, commission files
                         if filename.endswith('.pdf'):
@@ -120,15 +125,21 @@ class DataProcessor:
     def process_pdf_commission_statement(self, pdf_data):
         """
         Extract commission data from PDF and update master data.
-        Flexibly finds tables with Case ID and payment information.
+        Tries table extraction first, then falls back to text parsing.
         """
         logger.info("Processing PDF commission statement")
 
         try:
             with pdfplumber.open(io.BytesIO(pdf_data)) as pdf:
+                tables_found = False
+
                 for page_num, page in enumerate(pdf.pages):
                     logger.info(f"Extracting tables from page {page_num + 1}")
                     tables = page.extract_tables()
+
+                    if not tables or len(tables) == 0:
+                        logger.info(f"No tables found on page {page_num + 1}, trying text extraction")
+                        continue
 
                     for table in tables:
                         if not table or len(table) < 2:
@@ -168,6 +179,7 @@ class DataProcessor:
                             logger.info(f"Skipping table - missing required columns (Case ID: {case_id_col}, Paid: {paid_col})")
                             continue
 
+                        tables_found = True
                         logger.info(f"Found commission table with {len(df)} rows (Case ID: {case_id_col}, Paid: {paid_col}, Payment Type: {payment_type_col})")
 
                         # Process each row
@@ -186,9 +198,60 @@ class DataProcessor:
                                 logger.info(f"Extracted from PDF: Case {case_id}, {payment_type} = £{paid_amount:.2f}")
                                 self._update_payment(case_id, payment_type, paid_amount)
 
+                # If no tables found, try text extraction fallback
+                if not tables_found:
+                    logger.info("No valid tables found, attempting text extraction fallback")
+                    self._process_pdf_text_fallback(pdf)
+
         except Exception as e:
             logger.error(f"Error processing PDF: {e}")
             raise
+
+    def _process_pdf_text_fallback(self, pdf):
+        """
+        Fallback method: Extract data from PDF text when table extraction fails.
+        Looks for patterns like Case IDs and payment amounts.
+        """
+        logger.info("Using text extraction fallback method")
+
+        for page_num, page in enumerate(pdf.pages):
+            text = page.extract_text()
+            if not text:
+                continue
+
+            logger.info(f"Page {page_num + 1} text length: {len(text)} characters")
+
+            # Split into lines
+            lines = text.split('\n')
+
+            # Look for lines containing Case IDs (6-7 digit numbers) and payment amounts
+            for i, line in enumerate(lines):
+                # Look for case ID pattern (6-7 digits)
+                case_match = re.search(r'\b(\d{6,7})\b', line)
+
+                if case_match:
+                    case_id = case_match.group(1)
+
+                    # Look for payment amount in same line or nearby lines
+                    # Pattern: £XX.XX or £XXX.XX or £X,XXX.XX
+                    amount_match = re.search(r'£\s*([\d,]+\.?\d*)', line)
+
+                    if amount_match:
+                        amount_str = amount_match.group(1)
+                        amount = self._clean_currency(amount_str)
+
+                        if amount > 0:
+                            # Try to find payment type in the line
+                            payment_type = 'Commission'
+                            if 'packaging' in line.lower():
+                                payment_type = 'Packaging Fee Payment'
+                            elif 'proc' in line.lower():
+                                payment_type = 'Proc Fee'
+                            elif 'broker' in line.lower():
+                                payment_type = 'Broker Fee'
+
+                            logger.info(f"Text extraction found: Case {case_id}, {payment_type} = £{amount:.2f}")
+                            self._update_payment(case_id, payment_type, amount)
 
     def _clean_currency(self, value):
         """Remove £, commas and convert to float."""
