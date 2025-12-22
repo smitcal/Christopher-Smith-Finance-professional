@@ -347,22 +347,31 @@ Chris Smith Mortgages is a trading style of Chris Smith who is an appointed repr
             sendBtn.onclick = function(e) {
                 e.preventDefault();
 
-                // Copy the PLAIN TEXT email to clipboard (not URL encoded)
-                const plainTextEmail = fullEmailBody;
+                // Use textarea method for better iOS compatibility
+                const textarea = document.createElement('textarea');
+                textarea.value = fullEmailBody;
+                textarea.style.position = 'fixed';
+                textarea.style.opacity = '0';
+                document.body.appendChild(textarea);
+                textarea.select();
+                textarea.setSelectionRange(0, 99999);
 
-                navigator.clipboard.writeText(plainTextEmail).then(function() {
+                try {
+                    document.execCommand('copy');
+                    document.body.removeChild(textarea);
+
                     // Show success message
                     alert('Email copied to clipboard! Your email app will open now - just paste the email body (Ctrl+V or Cmd+V).');
 
-                    // Small delay before opening email app to ensure clipboard is set
+                    // Open email app
                     setTimeout(function() {
                         window.location.href = mailtoLink;
-                    }, 100);
-                }, function(err) {
-                    // If clipboard fails, just open email app
+                    }, 500);
+                } catch (err) {
+                    document.body.removeChild(textarea);
                     alert('Opening email app. Please copy the email text below manually.');
                     window.location.href = mailtoLink;
-                });
+                }
             };
 
             // Show send and copy buttons
@@ -373,17 +382,33 @@ Chris Smith Mortgages is a trading style of Chris Smith who is an appointed repr
             preview.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
         });
 
-        // Copy to clipboard functionality
+        // Copy to clipboard functionality - iOS compatible
         document.getElementById('copyBtn').addEventListener('click', function() {
-            // Copy the full email body including lead data
-            navigator.clipboard.writeText(fullEmailBody).then(function() {
-                // Show toast notification
-                const toastEl = document.getElementById('copyToast');
-                const toast = new bootstrap.Toast(toastEl);
-                toast.show();
-            }, function(err) {
-                alert('Failed to copy to clipboard. Please try selecting and copying manually.');
-            });
+            // Use textarea method for better iOS compatibility
+            const textarea = document.createElement('textarea');
+            textarea.value = fullEmailBody;
+            textarea.style.position = 'fixed';
+            textarea.style.opacity = '0';
+            document.body.appendChild(textarea);
+            textarea.select();
+            textarea.setSelectionRange(0, 99999); // For mobile devices
+
+            try {
+                const successful = document.execCommand('copy');
+                document.body.removeChild(textarea);
+
+                if (successful) {
+                    // Show toast notification
+                    const toastEl = document.getElementById('copyToast');
+                    const toast = new bootstrap.Toast(toastEl);
+                    toast.show();
+                } else {
+                    alert('Failed to copy. Please try selecting and copying manually.');
+                }
+            } catch (err) {
+                document.body.removeChild(textarea);
+                alert('Failed to copy. Please try selecting and copying manually.');
+            }
         });
     </script>
 </body>
