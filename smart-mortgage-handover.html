@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Mortgage Handover App</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px 0;
+        }
+        .container {
+            max-width: 800px;
+        }
+        .card {
+            border-radius: 15px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+        }
+        .card-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-radius: 15px 15px 0 0 !important;
+            padding: 25px;
+        }
+        .employment-toggle {
+            border: 2px solid #667eea;
+            background: white;
+            color: #667eea;
+            padding: 12px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: 600;
+            flex: 1;
+            margin: 5px;
+            min-width: 140px;
+        }
+        .employment-toggle:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+        }
+        .employment-toggle.active {
+            background: #667eea;
+            color: white;
+        }
+        .btn-draft {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border: none;
+            padding: 15px 40px;
+            font-size: 18px;
+            font-weight: 600;
+            border-radius: 10px;
+            transition: all 0.3s;
+        }
+        .btn-draft:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(102, 126, 234, 0.4);
+        }
+        .btn-copy {
+            background: #28a745;
+            border: none;
+            padding: 15px 40px;
+            font-size: 18px;
+            font-weight: 600;
+            border-radius: 10px;
+            transition: all 0.3s;
+        }
+        .btn-copy:hover {
+            background: #218838;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(40, 167, 69, 0.4);
+        }
+        .form-label {
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 8px;
+        }
+        .form-control, .form-select {
+            border-radius: 8px;
+            border: 2px solid #e0e0e0;
+            padding: 12px;
+            transition: all 0.3s;
+        }
+        .form-control:focus, .form-select:focus {
+            border-color: #667eea;
+            box-shadow: 0 0 0 0.2rem rgba(102, 126, 234, 0.25);
+        }
+        .email-preview {
+            background: #f8f9fa;
+            border: 2px solid #dee2e6;
+            border-radius: 10px;
+            padding: 25px;
+            margin-top: 20px;
+            white-space: pre-wrap;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            display: none;
+        }
+        .employment-grid {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-bottom: 25px;
+        }
+        @media (max-width: 576px) {
+            .employment-toggle {
+                min-width: calc(50% - 10px);
+            }
+            .btn-draft, .btn-copy {
+                width: 100%;
+                margin-bottom: 10px;
+            }
+        }
+        .toast-container {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 9999;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="card">
+            <div class="card-header text-center">
+                <h1 class="mb-0">Smart Mortgage Handover</h1>
+                <p class="mb-0 mt-2">Chris Smith Mortgages</p>
+            </div>
+            <div class="card-body p-4">
+                <!-- Employment Type Selector -->
+                <div class="mb-4">
+                    <label class="form-label">Employment Type (Select all that apply)</label>
+                    <div class="employment-grid">
+                        <button type="button" class="employment-toggle" data-type="employed">Employed</button>
+                        <button type="button" class="employment-toggle" data-type="soletrader">Sole Trader</button>
+                        <button type="button" class="employment-toggle" data-type="ltdcompany">Ltd Company Director</button>
+                        <button type="button" class="employment-toggle" data-type="landlord">Landlord / Rental Income</button>
+                    </div>
+                </div>
+
+                <!-- Client Information -->
+                <div class="mb-3">
+                    <label for="clientName" class="form-label">Client Name *</label>
+                    <input type="text" class="form-control" id="clientName" placeholder="Enter client's full name" required>
+                </div>
+
+                <div class="mb-3">
+                    <label for="clientEmail" class="form-label">Client Email *</label>
+                    <input type="email" class="form-control" id="clientEmail" placeholder="client@example.com" required>
+                </div>
+
+                <div class="mb-3">
+                    <label for="clientPhone" class="form-label">Client Phone Number *</label>
+                    <input type="tel" class="form-control" id="clientPhone" placeholder="07XXX XXXXXX" required>
+                </div>
+
+                <div class="mb-4">
+                    <label for="loanRecap" class="form-label">Loan Plan / Recap</label>
+                    <textarea class="form-control" id="loanRecap" rows="4" placeholder="Brief summary of the mortgage plan discussed..."></textarea>
+                </div>
+
+                <!-- Action Buttons -->
+                <div class="d-flex flex-wrap gap-2 justify-content-center">
+                    <button type="button" class="btn btn-primary btn-draft" id="draftBtn">Draft Email</button>
+                    <button type="button" class="btn btn-success btn-copy" id="copyBtn" style="display: none;">Copy to Clipboard</button>
+                </div>
+
+                <!-- Email Preview -->
+                <div id="emailPreview" class="email-preview"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div class="toast-container">
+        <div id="copyToast" class="toast align-items-center text-white bg-success border-0" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="d-flex">
+                <div class="toast-body">
+                    Email copied to clipboard!
+                </div>
+                <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Employment type toggle functionality
+        const employmentToggles = document.querySelectorAll('.employment-toggle');
+        employmentToggles.forEach(toggle => {
+            toggle.addEventListener('click', function() {
+                this.classList.toggle('active');
+            });
+        });
+
+        // Get active employment types
+        function getActiveEmploymentTypes() {
+            const active = [];
+            employmentToggles.forEach(toggle => {
+                if (toggle.classList.contains('active')) {
+                    active.push(toggle.dataset.type);
+                }
+            });
+            return active;
+        }
+
+        // Generate document list based on employment types
+        function generateDocumentList() {
+            const employmentTypes = getActiveEmploymentTypes();
+            const documents = [
+                'Photo ID (Passport or Driving Licence)',
+                'Proof of Address (Utility bill or bank statement dated within last 3 months)',
+                '3 Months Personal Bank Statements'
+            ];
+
+            if (employmentTypes.includes('employed')) {
+                documents.push('Recent Payslips (last 3 months)');
+                documents.push('P60 (most recent tax year)');
+            }
+
+            if (employmentTypes.includes('soletrader')) {
+                documents.push('SA302 Tax Calculations (last 2-3 years)');
+                documents.push('Tax Year Overviews (last 2-3 years)');
+            }
+
+            if (employmentTypes.includes('ltdcompany')) {
+                documents.push('Company Accounts (last 2 years)');
+                documents.push('SA302 if taking dividends');
+            }
+
+            if (employmentTypes.includes('landlord')) {
+                documents.push('Tenancy Agreements');
+                documents.push('Mortgage Statements for rental properties');
+            }
+
+            return documents.map(doc => `• ${doc}`).join('\n');
+        }
+
+        // Draft email functionality
+        document.getElementById('draftBtn').addEventListener('click', function() {
+            const clientName = document.getElementById('clientName').value.trim();
+            const clientEmail = document.getElementById('clientEmail').value.trim();
+            const clientPhone = document.getElementById('clientPhone').value.trim();
+            const loanRecap = document.getElementById('loanRecap').value.trim();
+
+            // Validation
+            if (!clientName || !clientEmail || !clientPhone) {
+                alert('Please fill in all required fields (Name, Email, and Phone Number)');
+                return;
+            }
+
+            // Generate email content
+            const documentList = generateDocumentList();
+            const ccEmail = 'chrisrsmith28@yahoo.co.uk';
+            const subject = `Next Steps: Mortgage Enquiry - ${clientName}`;
+
+            const emailBody = `To: ${clientEmail}
+CC: ${ccEmail}
+Subject: ${subject}
+
+Hi ${clientName},
+
+Thank you for calling Chris Smith Mortgages, great speaking earlier. Here is a summary of the plan:
+
+${loanRecap || '[No recap provided]'}
+
+Next Steps:
+I have cc'd Sarah, my fellow Mortgage Advisor. She will be in touch shortly to start your application.
+
+Client Contact Details for Sarah:
+Name: ${clientName}
+Phone: ${clientPhone}
+Email: ${clientEmail}
+
+ACTION REQUIRED (Priority):
+To ensure we prioritize your file, please REPLY to this email now with:
+1. The best 1-hour time slot for Sarah to call you.
+2. Your #1 priority for this mortgage (e.g. Lowest monthly payment, Speed, or Max borrowing).
+
+Credit Report:
+Please complete your report here: https://www.checkmyfile.partners/C9JN8J1/2CTPL/
+
+Documents to Prepare:
+Based on our chat, please get the following ready:
+
+${documentList}
+
+Important Information:
+Your home may be repossessed if you do not keep up repayments on your mortgage. The Financial Conduct Authority does not regulate some forms of Buy to Let mortgages.
+
+Chris Smith Mortgages is a trading style of Chris Smith who is an appointed representative of Oak Mortgages (UK) Limited which is authorised and regulated by the Financial Conduct Authority under number 965529.
+
+---
+## LEAD DATA: ${clientName} | ${clientPhone} | ${clientEmail}`;
+
+            // Display email preview
+            const preview = document.getElementById('emailPreview');
+            preview.textContent = emailBody;
+            preview.style.display = 'block';
+
+            // Show copy button
+            document.getElementById('copyBtn').style.display = 'inline-block';
+
+            // Scroll to preview
+            preview.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        });
+
+        // Copy to clipboard functionality
+        document.getElementById('copyBtn').addEventListener('click', function() {
+            const emailContent = document.getElementById('emailPreview').textContent;
+
+            navigator.clipboard.writeText(emailContent).then(function() {
+                // Show toast notification
+                const toastEl = document.getElementById('copyToast');
+                const toast = new bootstrap.Toast(toastEl);
+                toast.show();
+            }, function(err) {
+                alert('Failed to copy to clipboard. Please try selecting and copying manually.');
+            });
+        });
+    </script>
+</body>
+</html>
