@@ -136,6 +136,11 @@
             right: 20px;
             z-index: 9999;
         }
+        .lead-data {
+            color: #f8f9fa;
+            background: #f8f9fa;
+            user-select: all;
+        }
     </style>
 </head>
 <body>
@@ -224,6 +229,9 @@
             return active;
         }
 
+        // Store the full email body for copying
+        let fullEmailBody = '';
+
         // Generate document list based on employment types
         function generateDocumentList() {
             const employmentTypes = getActiveEmploymentTypes();
@@ -285,7 +293,7 @@ Thank you for calling Chris Smith Mortgages, great speaking earlier. Here is a s
 ${loanRecap || '[No recap provided]'}
 
 Next Steps:
-I have cc'd Sarah, my fellow Mortgage Advisor. She will be in touch shortly to start your application.
+I have cc'd Sarah, our most experienced Mortgage Advisor. She will be in touch shortly to discuss your options for a mortgage.
 
 Client Contact Details for Sarah:
 Name: ${clientName}
@@ -293,15 +301,17 @@ Phone: ${clientPhone}
 Email: ${clientEmail}
 
 ACTION REQUIRED (Priority):
-To ensure we prioritize your file, please REPLY to this email now with:
+To ensure we prioritise your file, please REPLY to this email now with:
 1. The best 1-hour time slot for Sarah to call you.
 2. Your #1 priority for this mortgage (e.g. Lowest monthly payment, Speed, or Max borrowing).
+
+When Sarah calls it will be from either an 01476 number or 03302 number.
 
 Credit Report:
 Please complete your report here: https://www.checkmyfile.partners/C9JN8J1/2CTPL/
 
 Documents to Prepare:
-Based on our chat, please get the following ready:
+Based on our chat, these are the documents you will need to proceed, please start getting them ready:
 
 ${documentList}
 
@@ -313,9 +323,19 @@ Chris Smith Mortgages is a trading style of Chris Smith who is an appointed repr
 ---
 ## LEAD DATA: ${clientName} | ${clientPhone} | ${clientEmail}`;
 
-            // Display email preview
+            // Store the full email body for copying (including lead data)
+            fullEmailBody = emailBody;
+
+            // Display email preview with hidden lead data
             const preview = document.getElementById('emailPreview');
-            preview.textContent = emailBody;
+            const emailBodyParts = emailBody.split('---\n## LEAD DATA:');
+            if (emailBodyParts.length > 1) {
+                preview.innerHTML = emailBodyParts[0].replace(/\n/g, '<br>') +
+                    '<span class="lead-data">---<br>## LEAD DATA:' +
+                    emailBodyParts[1].replace(/\n/g, '<br>') + '</span>';
+            } else {
+                preview.textContent = emailBody;
+            }
             preview.style.display = 'block';
 
             // Generate mailto link
@@ -326,7 +346,7 @@ Thank you for calling Chris Smith Mortgages, great speaking earlier. Here is a s
 ${loanRecap || '[No recap provided]'}
 
 Next Steps:
-I have cc'd Sarah, my fellow Mortgage Advisor. She will be in touch shortly to start your application.
+I have cc'd Sarah, our most experienced Mortgage Advisor. She will be in touch shortly to discuss your options for a mortgage.
 
 Client Contact Details for Sarah:
 Name: ${clientName}
@@ -334,15 +354,17 @@ Phone: ${clientPhone}
 Email: ${clientEmail}
 
 ACTION REQUIRED (Priority):
-To ensure we prioritize your file, please REPLY to this email now with:
+To ensure we prioritise your file, please REPLY to this email now with:
 1. The best 1-hour time slot for Sarah to call you.
 2. Your #1 priority for this mortgage (e.g. Lowest monthly payment, Speed, or Max borrowing).
+
+When Sarah calls it will be from either an 01476 number or 03302 number.
 
 Credit Report:
 Please complete your report here: https://www.checkmyfile.partners/C9JN8J1/2CTPL/
 
 Documents to Prepare:
-Based on our chat, please get the following ready:
+Based on our chat, these are the documents you will need to proceed, please start getting them ready:
 
 ${documentList}
 
@@ -363,9 +385,8 @@ Chris Smith Mortgages is a trading style of Chris Smith who is an appointed repr
             sendBtn.onclick = function(e) {
                 e.preventDefault();
 
-                // First, copy the full email to clipboard
-                const emailContent = document.getElementById('emailPreview').textContent;
-                navigator.clipboard.writeText(emailContent).then(function() {
+                // First, copy the full email to clipboard (including lead data)
+                navigator.clipboard.writeText(fullEmailBody).then(function() {
                     // Show success message
                     alert('Email copied to clipboard! Your email app will open now - just paste the email body (Ctrl+V or Cmd+V).');
 
@@ -388,9 +409,8 @@ Chris Smith Mortgages is a trading style of Chris Smith who is an appointed repr
 
         // Copy to clipboard functionality
         document.getElementById('copyBtn').addEventListener('click', function() {
-            const emailContent = document.getElementById('emailPreview').textContent;
-
-            navigator.clipboard.writeText(emailContent).then(function() {
+            // Copy the full email body including lead data
+            navigator.clipboard.writeText(fullEmailBody).then(function() {
                 // Show toast notification
                 const toastEl = document.getElementById('copyToast');
                 const toast = new bootstrap.Toast(toastEl);
