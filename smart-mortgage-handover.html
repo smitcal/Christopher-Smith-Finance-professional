@@ -338,44 +338,6 @@ Chris Smith Mortgages is a trading style of Chris Smith who is an appointed repr
             }
             preview.style.display = 'block';
 
-            // Generate mailto link
-            const emailBodyForMailto = `Hi ${clientName},
-
-Thank you for calling Chris Smith Mortgages, great speaking earlier. Here is a summary of the plan:
-
-${loanRecap || '[No recap provided]'}
-
-Next Steps:
-I have cc'd Sarah, our most experienced Mortgage Advisor. She will be in touch shortly to discuss your options for a mortgage.
-
-Client Contact Details for Sarah:
-Name: ${clientName}
-Phone: ${clientPhone}
-Email: ${clientEmail}
-
-ACTION REQUIRED (Priority):
-To ensure we prioritise your file, please REPLY to this email now with:
-1. The best 1-hour time slot for Sarah to call you.
-2. Your #1 priority for this mortgage (e.g. Lowest monthly payment, Speed, or Max borrowing).
-
-When Sarah calls it will be from either an 01476 number or 03302 number.
-
-Credit Report:
-Please complete your report here: https://www.checkmyfile.partners/C9JN8J1/2CTPL/
-
-Documents to Prepare:
-Based on our chat, these are the documents you will need to proceed, please start getting them ready:
-
-${documentList}
-
-Important Information:
-Your home may be repossessed if you do not keep up repayments on your mortgage. The Financial Conduct Authority does not regulate some forms of Buy to Let mortgages.
-
-Chris Smith Mortgages is a trading style of Chris Smith who is an appointed representative of Oak Mortgages (UK) Limited which is authorised and regulated by the Financial Conduct Authority under number 965529.
-
----
-## LEAD DATA: ${clientName} | ${clientPhone} | ${clientEmail}`;
-
             // Simplified mailto link (just to/cc/subject - body is too long for mailto URLs)
             const mailtoLink = `mailto:${clientEmail}?cc=${ccEmail}&subject=${encodeURIComponent(subject)}`;
 
@@ -385,13 +347,17 @@ Chris Smith Mortgages is a trading style of Chris Smith who is an appointed repr
             sendBtn.onclick = function(e) {
                 e.preventDefault();
 
-                // First, copy the full email to clipboard (including lead data)
-                navigator.clipboard.writeText(fullEmailBody).then(function() {
+                // Copy the PLAIN TEXT email to clipboard (not URL encoded)
+                const plainTextEmail = fullEmailBody;
+
+                navigator.clipboard.writeText(plainTextEmail).then(function() {
                     // Show success message
                     alert('Email copied to clipboard! Your email app will open now - just paste the email body (Ctrl+V or Cmd+V).');
 
-                    // Then open the email app
-                    window.location.href = mailtoLink;
+                    // Small delay before opening email app to ensure clipboard is set
+                    setTimeout(function() {
+                        window.location.href = mailtoLink;
+                    }, 100);
                 }, function(err) {
                     // If clipboard fails, just open email app
                     alert('Opening email app. Please copy the email text below manually.');
