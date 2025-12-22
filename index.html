@@ -354,11 +354,32 @@ Chris Smith Mortgages is a trading style of Chris Smith who is an appointed repr
 ---
 ## LEAD DATA: ${clientName} | ${clientPhone} | ${clientEmail}`;
 
-            const mailtoLink = `mailto:${clientEmail}?cc=${ccEmail}&subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(emailBodyForMailto)}`;
-            document.getElementById('sendBtn').href = mailtoLink;
+            // Simplified mailto link (just to/cc/subject - body is too long for mailto URLs)
+            const mailtoLink = `mailto:${clientEmail}?cc=${ccEmail}&subject=${encodeURIComponent(subject)}`;
+
+            // Update Send Email button to copy AND open email
+            const sendBtn = document.getElementById('sendBtn');
+            sendBtn.href = mailtoLink;
+            sendBtn.onclick = function(e) {
+                e.preventDefault();
+
+                // First, copy the full email to clipboard
+                const emailContent = document.getElementById('emailPreview').textContent;
+                navigator.clipboard.writeText(emailContent).then(function() {
+                    // Show success message
+                    alert('Email copied to clipboard! Your email app will open now - just paste the email body (Ctrl+V or Cmd+V).');
+
+                    // Then open the email app
+                    window.location.href = mailtoLink;
+                }, function(err) {
+                    // If clipboard fails, just open email app
+                    alert('Opening email app. Please copy the email text below manually.');
+                    window.location.href = mailtoLink;
+                });
+            };
 
             // Show send and copy buttons
-            document.getElementById('sendBtn').style.display = 'inline-block';
+            sendBtn.style.display = 'inline-block';
             document.getElementById('copyBtn').style.display = 'inline-block';
 
             // Scroll to preview
