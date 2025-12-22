@@ -72,6 +72,23 @@
             transform: translateY(-2px);
             box-shadow: 0 8px 20px rgba(40, 167, 69, 0.4);
         }
+        .btn-send {
+            background: #ff6b6b;
+            border: none;
+            padding: 15px 40px;
+            font-size: 18px;
+            font-weight: 600;
+            border-radius: 10px;
+            transition: all 0.3s;
+            color: white;
+            text-decoration: none;
+        }
+        .btn-send:hover {
+            background: #ee5a52;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(255, 107, 107, 0.4);
+            color: white;
+        }
         .form-label {
             font-weight: 600;
             color: #333;
@@ -108,7 +125,7 @@
             .employment-toggle {
                 min-width: calc(50% - 10px);
             }
-            .btn-draft, .btn-copy {
+            .btn-draft, .btn-copy, .btn-send {
                 width: 100%;
                 margin-bottom: 10px;
             }
@@ -164,6 +181,7 @@
                 <!-- Action Buttons -->
                 <div class="d-flex flex-wrap gap-2 justify-content-center">
                     <button type="button" class="btn btn-primary btn-draft" id="draftBtn">Draft Email</button>
+                    <a href="#" class="btn btn-send" id="sendBtn" style="display: none;">Send Email</a>
                     <button type="button" class="btn btn-success btn-copy" id="copyBtn" style="display: none;">Copy to Clipboard</button>
                 </div>
 
@@ -300,7 +318,47 @@ Chris Smith Mortgages is a trading style of Chris Smith who is an appointed repr
             preview.textContent = emailBody;
             preview.style.display = 'block';
 
-            // Show copy button
+            // Generate mailto link
+            const emailBodyForMailto = `Hi ${clientName},
+
+Thank you for calling Chris Smith Mortgages, great speaking earlier. Here is a summary of the plan:
+
+${loanRecap || '[No recap provided]'}
+
+Next Steps:
+I have cc'd Sarah, my fellow Mortgage Advisor. She will be in touch shortly to start your application.
+
+Client Contact Details for Sarah:
+Name: ${clientName}
+Phone: ${clientPhone}
+Email: ${clientEmail}
+
+ACTION REQUIRED (Priority):
+To ensure we prioritize your file, please REPLY to this email now with:
+1. The best 1-hour time slot for Sarah to call you.
+2. Your #1 priority for this mortgage (e.g. Lowest monthly payment, Speed, or Max borrowing).
+
+Credit Report:
+Please complete your report here: https://www.checkmyfile.partners/C9JN8J1/2CTPL/
+
+Documents to Prepare:
+Based on our chat, please get the following ready:
+
+${documentList}
+
+Important Information:
+Your home may be repossessed if you do not keep up repayments on your mortgage. The Financial Conduct Authority does not regulate some forms of Buy to Let mortgages.
+
+Chris Smith Mortgages is a trading style of Chris Smith who is an appointed representative of Oak Mortgages (UK) Limited which is authorised and regulated by the Financial Conduct Authority under number 965529.
+
+---
+## LEAD DATA: ${clientName} | ${clientPhone} | ${clientEmail}`;
+
+            const mailtoLink = `mailto:${clientEmail}?cc=${ccEmail}&subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(emailBodyForMailto)}`;
+            document.getElementById('sendBtn').href = mailtoLink;
+
+            // Show send and copy buttons
+            document.getElementById('sendBtn').style.display = 'inline-block';
             document.getElementById('copyBtn').style.display = 'inline-block';
 
             // Scroll to preview
