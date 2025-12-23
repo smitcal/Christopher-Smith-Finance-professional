@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meal Planner</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <style>
+        .tab-active {
+            border-bottom: 3px solid #3b82f6;
+            color: #3b82f6;
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <div class="max-w-4xl mx-auto p-4">
+        <!-- Header -->
+        <header class="bg-white rounded-lg shadow-md p-6 mb-6">
+            <h1 class="text-3xl font-bold text-gray-800 text-center">🍽️ Meal Planner</h1>
+        </header>
+
+        <!-- Quick Add Section -->
+        <div class="bg-white rounded-lg shadow-md p-4 mb-6">
+            <div class="flex gap-2">
+                <input
+                    type="text"
+                    id="quickAddInput"
+                    placeholder="Quick add a new meal..."
+                    class="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    onkeypress="if(event.key === 'Enter') quickAdd()"
+                />
+                <button
+                    onclick="quickAdd()"
+                    class="px-6 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors font-semibold"
+                >
+                    + Add
+                </button>
+            </div>
+        </div>
+
+        <!-- Tabs -->
+        <div class="bg-white rounded-t-lg shadow-md">
+            <div class="flex border-b border-gray-200">
+                <button
+                    id="dashboardTab"
+                    class="flex-1 px-4 py-3 font-semibold tab-active transition-colors"
+                    onclick="switchTab('dashboard')"
+                >
+                    Dashboard
+                </button>
+                <button
+                    id="libraryTab"
+                    class="flex-1 px-4 py-3 font-semibold text-gray-600 hover:text-gray-800 transition-colors"
+                    onclick="switchTab('library')"
+                >
+                    Library
+                </button>
+            </div>
+        </div>
+
+        <!-- Content Area -->
+        <div class="bg-white rounded-b-lg shadow-md p-6 min-h-96">
+            <!-- Dashboard View -->
+            <div id="dashboardView" class="space-y-4">
+                <div id="dashboardContent" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <!-- Meals will be loaded here -->
+                </div>
+                <div id="dashboardEmpty" class="text-center py-12 text-gray-400 hidden">
+                    <p class="text-xl">No meals in your queue!</p>
+                    <p class="mt-2">Add some from the Library tab or use Quick Add above.</p>
+                </div>
+            </div>
+
+            <!-- Library View -->
+            <div id="libraryView" class="space-y-4 hidden">
+                <div id="libraryContent" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <!-- Meals will be loaded here -->
+                </div>
+                <div id="libraryEmpty" class="text-center py-12 text-gray-400 hidden">
+                    <p class="text-xl">No meals in your library!</p>
+                    <p class="mt-2">Use Quick Add above to add your first meal.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Loading Indicator -->
+        <div id="loading" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden">
+            <div class="bg-white rounded-lg p-6">
+                <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-500 mx-auto"></div>
+                <p class="mt-4 text-gray-600">Loading...</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Supabase Configuration
+        const SUPABASE_URL = 'https://dxfcfcyvlkxdhikzzsqs.supabase.co';
+        const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImR4ZmNmY3l2bGt4ZGhpa3p6c3FzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzUwNjgxNzEsImV4cCI6MjA1MDY0NDE3MX0.TDElhN13j0TZQssrPtOayA_2h_WCaPo';
+
+        const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
+        // Master list for seeding
+        const MASTER_LIST = [
+            'Chicken Pot Pie',
+            'Lamb Casserole',
+            'Tuna Melt',
+            'Chicken Club Sandwich',
+            'Beef sandwiches with a french dip sauce',
+            'Pork chops (Sous vide) with apple and cider sauce',
+            'Cod, sauce, potatoes/sweet pot, green beans',
+            'Beef stew - dumplings',
+            'Chicken curry - half a naan',
+            'Sausage casserole',
+            'Meatballs - garlic bread',
+            'Egg fried rice - chicken',
+            'Bruschetta',
+            'Prawns in garlic',
+            'Braised beef - potatoes - veg',
+            'Chilli con carne - garlic bread',
+            'Tuna pasta bake',
+            'Chicken roast dinner',
+            'Beef stir fry, rice. Peppers and soy ginger sauce',
+            'Chicken souvlaki',
+            'Coq au vin',
+            'Chicken and root veg casserole',
+            'Cheese and onion pie',
+            'Sausage and mash with gravy',
+            'Toad in hole',
+            'Braised lamb shanks',
+            'Venison pie',
+            'Pheasant with cider and apples',
+            'Palak Paneer',
+            'Easy - pizzas',
+            'Burgers and chips',
+            'Fish and chips',
+            'Aldi box meals',
+            'Pork and Apple cider stew',
+            'Maple Mustard Glazed chicken'
+        ];
+
+        let currentTab = 'dashboard';
+
+        // Initialize app
+        async function init() {
+            showLoading(true);
+            await checkAndSeedDatabase();
+            await loadMeals();
+            showLoading(false);
+        }
+
+        // Check if database is empty and seed if needed
+        async function checkAndSeedDatabase() {
+            try {
+                const { data, error } = await supabase
+                    .from('meals')
+                    .select('id')
+                    .limit(1);
+
+                if (error) {
+                    console.error('Error checking database:', error);
+                    alert('Error connecting to database. Please make sure you have run the SQL schema in Supabase.');
+                    return;
+                }
+
+                // If no meals exist, seed the database
+                if (!data || data.length === 0) {
+                    console.log('Database is empty. Seeding with master list...');
+                    const mealsToInsert = MASTER_LIST.map(name => ({
+                        name: name,
+                        in_dashboard: false
+                    }));
+
+                    const { error: insertError } = await supabase
+                        .from('meals')
+                        .insert(mealsToInsert);
+
+                    if (insertError) {
+                        console.error('Error seeding database:', insertError);
+                    } else {
+                        console.log('Database seeded successfully!');
+                    }
+                }
+            } catch (err) {
+                console.error('Error in checkAndSeedDatabase:', err);
+            }
+        }
+
+        // Load meals from database
+        async function loadMeals() {
+            try {
+                const { data, error } = await supabase
+                    .from('meals')
+                    .select('*')
+                    .order('name', { ascending: true });
+
+                if (error) throw error;
+
+                renderMeals(data);
+            } catch (err) {
+                console.error('Error loading meals:', err);
+                alert('Error loading meals: ' + err.message);
+            }
+        }
+
+        // Render meals based on current tab
+        function renderMeals(meals) {
+            const dashboardMeals = meals.filter(m => m.in_dashboard);
+            const libraryMeals = meals.filter(m => !m.in_dashboard);
+
+            // Render Dashboard
+            const dashboardContent = document.getElementById('dashboardContent');
+            const dashboardEmpty = document.getElementById('dashboardEmpty');
+
+            if (dashboardMeals.length === 0) {
+                dashboardContent.innerHTML = '';
+                dashboardEmpty.classList.remove('hidden');
+            } else {
+                dashboardEmpty.classList.add('hidden');
+                dashboardContent.innerHTML = dashboardMeals.map(meal => `
+                    <div class="bg-gradient-to-br from-blue-50 to-indigo-50 rounded-lg p-4 border-2 border-blue-200 shadow-sm hover:shadow-md transition-shadow">
+                        <h3 class="font-semibold text-gray-800 mb-3">${escapeHtml(meal.name)}</h3>
+                        <button
+                            onclick="weAteThis('${meal.id}')"
+                            class="w-full px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600 transition-colors font-semibold"
+                        >
+                            ✓ We Ate This
+                        </button>
+                    </div>
+                `).join('');
+            }
+
+            // Render Library
+            const libraryContent = document.getElementById('libraryContent');
+            const libraryEmpty = document.getElementById('libraryEmpty');
+
+            if (libraryMeals.length === 0) {
+                libraryContent.innerHTML = '';
+                libraryEmpty.classList.remove('hidden');
+            } else {
+                libraryEmpty.classList.add('hidden');
+                libraryContent.innerHTML = libraryMeals.map(meal => `
+                    <div class="bg-gray-50 rounded-lg p-4 border-2 border-gray-200 shadow-sm hover:shadow-md transition-shadow">
+                        <h3 class="font-semibold text-gray-800 mb-3">${escapeHtml(meal.name)}</h3>
+                        <button
+                            onclick="addToDashboard('${meal.id}')"
+                            class="w-full px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors font-semibold"
+                        >
+                            + Add to Dashboard
+                        </button>
+                    </div>
+                `).join('');
+            }
+        }
+
+        // Quick Add functionality
+        async function quickAdd() {
+            const input = document.getElementById('quickAddInput');
+            const mealName = input.value.trim();
+
+            if (!mealName) {
+                alert('Please enter a meal name');
+                return;
+            }
+
+            showLoading(true);
+
+            try {
+                const { data, error } = await supabase
+                    .from('meals')
+                    .insert([{
+                        name: mealName,
+                        in_dashboard: true,
+                        dashboard_added_at: new Date().toISOString()
+                    }])
+                    .select();
+
+                if (error) throw error;
+
+                input.value = '';
+                await loadMeals();
+
+                // Switch to dashboard to show the newly added meal
+                if (currentTab !== 'dashboard') {
+                    switchTab('dashboard');
+                }
+            } catch (err) {
+                console.error('Error adding meal:', err);
+                alert('Error adding meal: ' + err.message);
+            }
+
+            showLoading(false);
+        }
+
+        // Add meal to dashboard
+        async function addToDashboard(mealId) {
+            showLoading(true);
+
+            try {
+                const { error } = await supabase
+                    .from('meals')
+                    .update({
+                        in_dashboard: true,
+                        dashboard_added_at: new Date().toISOString()
+                    })
+                    .eq('id', mealId);
+
+                if (error) throw error;
+
+                await loadMeals();
+            } catch (err) {
+                console.error('Error adding to dashboard:', err);
+                alert('Error adding to dashboard: ' + err.message);
+            }
+
+            showLoading(false);
+        }
+
+        // Remove meal from dashboard (We Ate This)
+        async function weAteThis(mealId) {
+            showLoading(true);
+
+            try {
+                const { error } = await supabase
+                    .from('meals')
+                    .update({
+                        in_dashboard: false,
+                        dashboard_added_at: null
+                    })
+                    .eq('id', mealId);
+
+                if (error) throw error;
+
+                await loadMeals();
+            } catch (err) {
+                console.error('Error removing from dashboard:', err);
+                alert('Error: ' + err.message);
+            }
+
+            showLoading(false);
+        }
+
+        // Switch between tabs
+        function switchTab(tab) {
+            currentTab = tab;
+
+            const dashboardTab = document.getElementById('dashboardTab');
+            const libraryTab = document.getElementById('libraryTab');
+            const dashboardView = document.getElementById('dashboardView');
+            const libraryView = document.getElementById('libraryView');
+
+            if (tab === 'dashboard') {
+                dashboardTab.classList.add('tab-active', 'text-blue-500');
+                dashboardTab.classList.remove('text-gray-600');
+                libraryTab.classList.remove('tab-active', 'text-blue-500');
+                libraryTab.classList.add('text-gray-600');
+                dashboardView.classList.remove('hidden');
+                libraryView.classList.add('hidden');
+            } else {
+                libraryTab.classList.add('tab-active', 'text-blue-500');
+                libraryTab.classList.remove('text-gray-600');
+                dashboardTab.classList.remove('tab-active', 'text-blue-500');
+                dashboardTab.classList.add('text-gray-600');
+                libraryView.classList.remove('hidden');
+                dashboardView.classList.add('hidden');
+            }
+        }
+
+        // Helper functions
+        function showLoading(show) {
+            const loading = document.getElementById('loading');
+            if (show) {
+                loading.classList.remove('hidden');
+            } else {
+                loading.classList.add('hidden');
+            }
+        }
+
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+
+        // Initialize on page load
+        document.addEventListener('DOMContentLoaded', init);
+    </script>
+</body>
+</html>
