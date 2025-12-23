@@ -98,7 +98,7 @@
         const SUPABASE_URL = 'https://dxfcfcyvlkxdhikzzsqs.supabase.co';
         const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImR4ZmNmY3l2bGt4ZGhpa3p6c3FzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzUwNjgxNzEsImV4cCI6MjA1MDY0NDE3MX0.TDElhN13j0TZQssrPtOayA_2h_WCaPo';
 
-        const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+        let supabase;
 
         // Master list for seeding
         const MASTER_LIST = [
@@ -143,6 +143,15 @@
 
         // Initialize app
         async function init() {
+            // Initialize Supabase client
+            if (window.supabase) {
+                supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+            } else {
+                console.error('Supabase library not loaded');
+                alert('Error: Supabase library failed to load. Please refresh the page.');
+                return;
+            }
+
             showLoading(true);
             await checkAndSeedDatabase();
             await loadMeals();
