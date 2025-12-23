@@ -82,6 +82,10 @@ On first load, if the database is empty, the app automatically populates it with
 
 The app is fully responsive and optimized for mobile devices, making it easy to plan meals on the go.
 
+## Live App
+
+Access your meal planner at: https://smitcal.github.io/Christopher-Smith-Finance-professional/meal-planner/
+
 ## License
 
 Free to use and modify for personal use.
