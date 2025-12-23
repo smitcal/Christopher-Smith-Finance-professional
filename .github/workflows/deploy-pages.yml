@@ -3,6 +3,7 @@ name: Deploy Meal Planner to GitHub Pages
 on:
   push:
     branches:
+      - master
       - claude/serverless-meal-planner-fjvXJ
     paths:
       - 'meal-planner/**'
