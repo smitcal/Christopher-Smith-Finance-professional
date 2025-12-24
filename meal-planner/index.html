@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Meal Planner</title>
-    <!-- Version 1.1 - Deploy trigger -->
+    <!-- Version 1.2 - Fixed z-index and added debugging -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <style>
@@ -41,7 +41,7 @@
         </div>
 
         <!-- Tabs -->
-        <div class="bg-white rounded-t-lg shadow-md">
+        <div class="bg-white rounded-t-lg shadow-md relative z-10">
             <div class="flex border-b border-gray-200">
                 <button
                     id="dashboardTab"
@@ -86,8 +86,8 @@
         </div>
 
         <!-- Loading Indicator -->
-        <div id="loading" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden">
-            <div class="bg-white rounded-lg p-6">
+        <div id="loading" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden pointer-events-none z-50">
+            <div class="bg-white rounded-lg p-6 pointer-events-auto">
                 <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-500 mx-auto"></div>
                 <p class="mt-4 text-gray-600">Loading...</p>
             </div>
@@ -144,9 +144,18 @@
 
         // Initialize app
         async function init() {
+            console.log('Initializing app...');
+
             // Initialize Supabase client
             if (window.supabase) {
-                supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+                try {
+                    supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+                    console.log('Supabase client initialized successfully');
+                } catch (err) {
+                    console.error('Failed to create Supabase client:', err);
+                    alert('Error: Failed to initialize Supabase. Please refresh the page.');
+                    return;
+                }
             } else {
                 console.error('Supabase library not loaded');
                 alert('Error: Supabase library failed to load. Please refresh the page.');
@@ -154,9 +163,17 @@
             }
 
             showLoading(true);
-            await checkAndSeedDatabase();
-            await loadMeals();
-            showLoading(false);
+
+            try {
+                await checkAndSeedDatabase();
+                await loadMeals();
+                console.log('App initialized successfully');
+            } catch (err) {
+                console.error('Error during initialization:', err);
+                alert('Error loading data: ' + err.message);
+            } finally {
+                showLoading(false);
+            }
         }
 
         // Check if database is empty and seed if needed
@@ -352,12 +369,18 @@
 
         // Switch between tabs
         function switchTab(tab) {
+            console.log('Attempting to switch to:', tab);
             currentTab = tab;
 
             const dashboardTab = document.getElementById('dashboardTab');
             const libraryTab = document.getElementById('libraryTab');
             const dashboardView = document.getElementById('dashboardView');
             const libraryView = document.getElementById('libraryView');
+
+            if (!dashboardTab || !libraryTab || !dashboardView || !libraryView) {
+                console.error('Tab elements not found!');
+                return;
+            }
 
             if (tab === 'dashboard') {
                 dashboardTab.classList.add('tab-active', 'text-blue-500');
@@ -374,6 +397,8 @@
                 libraryView.classList.remove('hidden');
                 dashboardView.classList.add('hidden');
             }
+
+            console.log('Tab switched successfully');
         }
 
         // Helper functions
