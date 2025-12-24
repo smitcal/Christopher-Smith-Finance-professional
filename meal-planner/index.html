@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Meal Planner</title>
-    <!-- Version 1.2 - Fixed z-index and added debugging -->
+    <!-- Version 1.3 - Updated to use new 2025 publishable key format -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <style>
@@ -97,7 +97,7 @@
     <script>
         // Supabase Configuration
         const SUPABASE_URL = 'https://dxfcfcyvlkxdhikzzsqs.supabase.co';
-        const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImR4ZmNmY3l2bGt4ZGhpa3p6c3FzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzUwNjgxNzEsImV4cCI6MjA1MDY0NDE3MX0.TDElhN13j0TZQssrPtOayA_2h_WCaPo';
+        const SUPABASE_KEY = 'sb_publishable_TDElhN13j0TZQssrPtOayA_2h_WCaPo';
 
         let supabase;
 
@@ -179,6 +179,7 @@
         // Check if database is empty and seed if needed
         async function checkAndSeedDatabase() {
             try {
+                console.log('Checking database...');
                 const { data, error } = await supabase
                     .from('meals')
                     .select('id')
@@ -186,9 +187,18 @@
 
                 if (error) {
                     console.error('Error checking database:', error);
-                    alert('Error connecting to database. Please make sure you have run the SQL schema in Supabase.');
+                    console.error('Error details:', JSON.stringify(error, null, 2));
+
+                    // Check if it's an RLS policy error
+                    if (error.message && error.message.includes('policy')) {
+                        alert('Database connection failed: Row Level Security is blocking access.\n\nPlease disable RLS on the meals table or add a policy to allow SELECT/INSERT for anonymous users.');
+                    } else {
+                        alert('Error connecting to database: ' + error.message + '\n\nCheck the browser console (F12) for details.');
+                    }
                     return;
                 }
+
+                console.log('Database check result:', data);
 
                 // If no meals exist, seed the database
                 if (!data || data.length === 0) {
@@ -198,18 +208,30 @@
                         in_dashboard: false
                     }));
 
-                    const { error: insertError } = await supabase
+                    console.log('Attempting to insert', mealsToInsert.length, 'meals...');
+                    const { data: insertedData, error: insertError } = await supabase
                         .from('meals')
-                        .insert(mealsToInsert);
+                        .insert(mealsToInsert)
+                        .select();
 
                     if (insertError) {
                         console.error('Error seeding database:', insertError);
+                        console.error('Insert error details:', JSON.stringify(insertError, null, 2));
+
+                        if (insertError.message && insertError.message.includes('policy')) {
+                            alert('Cannot seed database: Row Level Security is blocking INSERT.\n\nPlease add a policy to allow INSERT for anonymous users.');
+                        } else {
+                            alert('Error seeding database: ' + insertError.message);
+                        }
                     } else {
-                        console.log('Database seeded successfully!');
+                        console.log('Database seeded successfully!', insertedData?.length || 0, 'meals inserted');
                     }
+                } else {
+                    console.log('Database already has meals, skipping seed');
                 }
             } catch (err) {
                 console.error('Error in checkAndSeedDatabase:', err);
+                alert('Unexpected error: ' + err.message);
             }
         }
 
