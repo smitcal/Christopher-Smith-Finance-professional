@@ -6,65 +6,54 @@
     <title>Chris Smith | Mortgage & Protection File Review Services</title>
     <meta name="description" content="Independent mortgage and protection file review services. Over 10 years' FCA-regulated experience. Thorough, reliable compliance file checking for brokers and DA firms.">
     <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
-            --primary:      #0d9488;
-            --primary-dark: #0f766e;
-            --primary-deep: #134e4a;
-            --accent:       #5eead4;
-            --light-bg:     #f0fdfa;
-            --mid-bg:       #ccfbf1;
-            --text-dark:    #1e293b;
-            --text-light:   #64748b;
-            --white:        #ffffff;
-            --border:       #d1fae5;
+            --navy: #1a2744;
+            --navy-light: #243352;
+            --slate: #3d5a80;
+            --gold: #c8a45e;
+            --gold-light: #dbb96e;
+            --cream: #f8f6f1;
+            --cream-dark: #ede9e0;
+            --text: #2c2c2c;
+            --text-light: #5a5a5a;
+            --white: #ffffff;
         }
-
         * { margin: 0; padding: 0; box-sizing: border-box; }
-
         body {
             font-family: 'DM Sans', sans-serif;
-            color: var(--text-dark);
-            background: var(--light-bg);
+            color: var(--text);
+            background: var(--cream);
             line-height: 1.7;
             -webkit-font-smoothing: antialiased;
         }
-
-        /* ── NAV ── */
         nav {
             position: fixed;
             top: 0;
             width: 100%;
-            background: var(--primary-deep);
+            background: var(--navy);
             padding: 1rem 2rem;
             z-index: 100;
             display: flex;
             justify-content: space-between;
             align-items: center;
         }
-
         nav .logo {
             font-family: 'DM Serif Display', serif;
             color: var(--white);
             font-size: 1.2rem;
             letter-spacing: 0.5px;
         }
-
-        nav .logo span { color: var(--accent); }
-
+        nav .logo span { color: var(--gold); }
         nav ul { list-style: none; display: flex; gap: 2rem; }
-
         nav ul li a {
-            color: rgba(255,255,255,0.85);
+            color: var(--cream-dark);
             text-decoration: none;
             font-size: 0.9rem;
             font-weight: 500;
             transition: color 0.3s;
         }
-
-        nav ul li a:hover { color: var(--accent); }
-
+        nav ul li a:hover { color: var(--gold); }
         .mobile-toggle {
             display: none;
             background: none;
@@ -73,321 +62,253 @@
             font-size: 1.5rem;
             cursor: pointer;
         }
-
-        /* ── HERO ── */
         .hero {
-            background: linear-gradient(135deg, var(--primary-deep) 0%, var(--primary) 100%);
-            padding: 9rem 2rem 5rem;
+            background: var(--navy);
+            padding: 10rem 2rem 6rem;
             text-align: center;
             position: relative;
             overflow: hidden;
         }
-
         .hero::before {
             content: '';
             position: absolute;
             top: 0; left: 0; right: 0; bottom: 0;
-            background:
-                radial-gradient(ellipse at 25% 50%, rgba(94,234,212,0.12) 0%, transparent 55%),
-                radial-gradient(ellipse at 75% 30%, rgba(255,255,255,0.06) 0%, transparent 50%);
-            pointer-events: none;
+            background: radial-gradient(ellipse at 30% 50%, rgba(200,164,94,0.08) 0%, transparent 60%),
+                        radial-gradient(ellipse at 70% 30%, rgba(61,90,128,0.15) 0%, transparent 50%);
         }
-
         .hero-content { position: relative; max-width: 750px; margin: 0 auto; }
-
         .hero h1 {
             font-family: 'DM Serif Display', serif;
             color: var(--white);
             font-size: 3rem;
             line-height: 1.2;
             margin-bottom: 1.5rem;
+            letter-spacing: -0.5px;
         }
-
-        .hero h1 span { color: var(--accent); }
-
+        .hero h1 span { color: var(--gold); }
         .hero p {
-            color: rgba(255,255,255,0.88);
+            color: var(--cream-dark);
             font-size: 1.15rem;
-            max-width: 620px;
+            max-width: 600px;
             margin: 0 auto 2.5rem;
+            opacity: 0.9;
         }
-
         .hero-cta {
             display: inline-block;
-            background: var(--white);
-            color: var(--primary-dark);
+            background: var(--gold);
+            color: var(--navy);
             padding: 0.9rem 2.5rem;
             text-decoration: none;
             font-weight: 600;
             font-size: 0.95rem;
-            border-radius: 6px;
+            letter-spacing: 0.5px;
             transition: all 0.3s;
         }
-
         .hero-cta:hover {
-            background: var(--accent);
-            color: var(--primary-deep);
+            background: var(--gold-light);
             transform: translateY(-2px);
-            box-shadow: 0 6px 24px rgba(15,118,110,0.35);
+            box-shadow: 0 4px 20px rgba(200,164,94,0.3);
         }
-
-        /* ── CREDENTIAL STRIP ── */
         .credentials {
-            background: var(--primary-dark);
-            padding: 1.75rem 2rem;
+            background: var(--navy-light);
+            padding: 2rem;
             display: flex;
             justify-content: center;
             gap: 3rem;
             flex-wrap: wrap;
         }
-
-        .credential-item { text-align: center; }
-
+        .credential-item { text-align: center; color: var(--cream-dark); }
         .credential-item .number {
             font-family: 'DM Serif Display', serif;
             font-size: 1.8rem;
-            color: var(--accent);
+            color: var(--gold);
             display: block;
         }
-
         .credential-item .label {
-            font-size: 0.75rem;
+            font-size: 0.8rem;
             text-transform: uppercase;
             letter-spacing: 1.5px;
-            color: rgba(255,255,255,0.75);
+            opacity: 0.8;
         }
-
-        /* ── SECTION SHARED ── */
         section { padding: 5rem 2rem; }
         .container { max-width: 900px; margin: 0 auto; }
-
         .section-label {
             font-size: 0.75rem;
             text-transform: uppercase;
             letter-spacing: 3px;
-            color: var(--primary);
+            color: var(--gold);
             font-weight: 600;
-            margin-bottom: 0.6rem;
+            margin-bottom: 0.75rem;
         }
-
         .section-title {
             font-family: 'DM Serif Display', serif;
             font-size: 2.2rem;
-            color: var(--text-dark);
-            margin-bottom: 1.25rem;
+            color: var(--navy);
+            margin-bottom: 1.5rem;
             line-height: 1.3;
         }
-
         .section-text {
             color: var(--text-light);
             font-size: 1.05rem;
             max-width: 700px;
             margin-bottom: 2rem;
         }
-
-        /* ── ABOUT ── */
         .about { background: var(--white); }
-
         .experience-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 1.25rem;
-            margin-top: 2.5rem;
-        }
-
-        .experience-card {
-            background: var(--light-bg);
-            padding: 1.75rem;
-            border-left: 3px solid var(--primary);
-            border-radius: 4px;
-        }
-
-        .experience-card h4 {
-            font-family: 'DM Serif Display', serif;
-            color: var(--primary-dark);
-            font-size: 1.05rem;
-            margin-bottom: 0.4rem;
-        }
-
-        .experience-card p { color: var(--text-light); font-size: 0.92rem; }
-
-        /* ── SERVICES ── */
-        .services { background: var(--light-bg); }
-
-        .services-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 1.5rem;
             margin-top: 2.5rem;
         }
-
+        .experience-card {
+            background: var(--cream);
+            padding: 1.8rem;
+            border-left: 3px solid var(--gold);
+        }
+        .experience-card h4 {
+            font-family: 'DM Serif Display', serif;
+            color: var(--navy);
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+        }
+        .experience-card p { color: var(--text-light); font-size: 0.92rem; line-height: 1.6; }
+        .services { background: var(--cream); }
+        .services-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin-top: 2.5rem;
+        }
         .service-card {
             background: var(--white);
-            padding: 2.25rem 2rem;
-            border: 1px solid var(--border);
-            border-radius: 8px;
+            padding: 2.5rem 2rem;
+            border: 1px solid var(--cream-dark);
             transition: all 0.3s;
         }
-
         .service-card:hover {
-            border-color: var(--primary);
-            transform: translateY(-4px);
-            box-shadow: 0 10px 30px rgba(13,148,136,0.12);
+            border-color: var(--gold);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 30px rgba(26,39,68,0.08);
         }
-
         .service-card h3 {
             font-family: 'DM Serif Display', serif;
-            color: var(--text-dark);
+            color: var(--navy);
             font-size: 1.2rem;
-            margin-bottom: 0.6rem;
+            margin-bottom: 0.75rem;
         }
-
         .service-card p { color: var(--text-light); font-size: 0.92rem; }
-
         .service-tag {
             display: inline-block;
-            background: var(--mid-bg);
-            color: var(--primary-dark);
-            padding: 0.25rem 0.75rem;
-            font-size: 0.72rem;
+            background: var(--cream);
+            color: var(--slate);
+            padding: 0.3rem 0.8rem;
+            font-size: 0.75rem;
             font-weight: 600;
             text-transform: uppercase;
             letter-spacing: 1px;
-            border-radius: 20px;
-            margin-bottom: 0.85rem;
+            margin-bottom: 1rem;
         }
-
-        /* ── PROCESS ── */
-        .process { background: var(--primary-deep); }
-        .process .section-label { color: var(--accent); }
+        .process { background: var(--navy); color: var(--white); }
         .process .section-title { color: var(--white); }
-        .process .section-text { color: rgba(255,255,255,0.78); }
-
+        .process .section-text { color: var(--cream-dark); opacity: 0.85; }
         .process-steps {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
             gap: 2rem;
             margin-top: 3rem;
         }
-
         .step {
             text-align: center;
             padding: 2rem 1.5rem;
-            border: 1px solid rgba(94,234,212,0.25);
-            border-radius: 8px;
-            background: rgba(255,255,255,0.04);
+            border: 1px solid rgba(200,164,94,0.2);
         }
-
         .step-number {
             font-family: 'DM Serif Display', serif;
             font-size: 2.5rem;
-            color: var(--accent);
+            color: var(--gold);
             display: block;
-            margin-bottom: 0.85rem;
-            opacity: 0.7;
+            margin-bottom: 1rem;
+            opacity: 0.6;
         }
-
-        .step h4 { color: var(--white); font-size: 1rem; margin-bottom: 0.6rem; }
-        .step p  { font-size: 0.88rem; color: rgba(255,255,255,0.72); line-height: 1.6; }
-
-        /* ── WHY ── */
+        .step h4 { font-size: 1rem; margin-bottom: 0.75rem; font-weight: 600; }
+        .step p { font-size: 0.88rem; color: var(--cream-dark); opacity: 0.8; line-height: 1.6; }
         .why { background: var(--white); }
         .why-list { margin-top: 2rem; }
-
         .why-item {
             padding: 1.5rem 0;
-            border-bottom: 1px solid var(--border);
+            border-bottom: 1px solid var(--cream-dark);
             display: flex;
             gap: 1.5rem;
             align-items: flex-start;
         }
-
         .why-item:last-child { border-bottom: none; }
-
         .why-icon {
-            width: 38px; height: 38px; min-width: 38px;
-            background: var(--mid-bg);
-            border-radius: 50%;
+            width: 40px; height: 40px; min-width: 40px;
+            background: var(--cream);
             display: flex;
             align-items: center;
             justify-content: center;
-            color: var(--primary);
-            font-size: 1rem;
+            color: var(--gold);
+            font-family: 'DM Serif Display', serif;
+            font-size: 1.1rem;
         }
-
         .why-item h4 {
             font-family: 'DM Serif Display', serif;
-            color: var(--text-dark);
+            color: var(--navy);
             font-size: 1.05rem;
             margin-bottom: 0.3rem;
         }
-
         .why-item p { color: var(--text-light); font-size: 0.92rem; }
-
-        /* ── CONTACT ── */
-        .contact { background: var(--light-bg); }
-
+        .contact { background: var(--cream); }
         .contact-box {
             background: var(--white);
             padding: 3rem;
-            border: 1px solid var(--border);
-            border-radius: 10px;
+            border: 1px solid var(--cream-dark);
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 3rem;
             margin-top: 2rem;
         }
-
         .contact-info h3 {
             font-family: 'DM Serif Display', serif;
-            color: var(--text-dark);
-            font-size: 1.4rem;
-            margin-bottom: 0.85rem;
+            color: var(--navy);
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
         }
-
         .contact-info p { color: var(--text-light); font-size: 0.95rem; margin-bottom: 1.5rem; }
-
         .contact-detail { margin-bottom: 1rem; }
-
         .contact-detail .detail-label {
-            font-size: 0.72rem;
+            font-size: 0.75rem;
             text-transform: uppercase;
             letter-spacing: 1.5px;
-            color: var(--primary);
+            color: var(--gold);
             font-weight: 600;
-            margin-bottom: 0.2rem;
+            margin-bottom: 0.25rem;
         }
-
         .contact-detail a, .contact-detail span {
-            color: var(--text-dark);
+            color: var(--navy);
             text-decoration: none;
             font-size: 1rem;
             font-weight: 500;
         }
-
-        .contact-detail a:hover { color: var(--primary); }
-
+        .contact-detail a:hover { color: var(--gold); }
         .contact-form input,
         .contact-form textarea {
             width: 100%;
-            padding: 0.85rem 1rem;
-            border: 1px solid var(--border);
-            background: var(--light-bg);
+            padding: 0.9rem 1rem;
+            border: 1px solid var(--cream-dark);
+            background: var(--cream);
             font-family: 'DM Sans', sans-serif;
             font-size: 0.95rem;
             margin-bottom: 1rem;
-            border-radius: 6px;
             transition: border-color 0.3s;
             outline: none;
         }
-
         .contact-form input:focus,
-        .contact-form textarea:focus { border-color: var(--primary); }
-
+        .contact-form textarea:focus { border-color: var(--gold); }
         .contact-form textarea { height: 120px; resize: vertical; }
-
         .contact-form button {
-            background: var(--primary);
+            background: var(--navy);
             color: var(--white);
             border: none;
             padding: 0.9rem 2.5rem;
@@ -395,40 +316,24 @@
             font-weight: 600;
             font-size: 0.95rem;
             cursor: pointer;
-            border-radius: 6px;
             transition: all 0.3s;
+            letter-spacing: 0.5px;
         }
-
-        .contact-form button:hover {
-            background: var(--primary-dark);
-            transform: translateY(-2px);
-            box-shadow: 0 4px 16px rgba(13,148,136,0.3);
-        }
-
-        /* ── FOOTER ── */
+        .contact-form button:hover { background: var(--slate); transform: translateY(-2px); }
         footer {
-            background: var(--primary-deep);
+            background: var(--navy);
             padding: 2rem;
             text-align: center;
-            color: rgba(255,255,255,0.65);
-            font-size: 0.82rem;
+            color: var(--cream-dark);
+            font-size: 0.8rem;
+            opacity: 0.7;
         }
-
-        footer a {
-            color: var(--accent);
-            text-decoration: none;
-        }
-
-        footer a:hover { text-decoration: underline; }
-
-        /* ── RESPONSIVE ── */
         @media (max-width: 768px) {
-            .hero h1 { font-size: 2.1rem; }
-            .hero { padding: 7.5rem 1.5rem 4rem; }
-            .credentials { gap: 1.75rem; padding: 1.5rem; }
+            .hero h1 { font-size: 2.2rem; }
+            .hero { padding: 8rem 1.5rem 4rem; }
+            .credentials { gap: 2rem; padding: 1.5rem; }
             .credential-item .number { font-size: 1.4rem; }
-            .experience-grid,
-            .services-grid { grid-template-columns: 1fr; }
+            .experience-grid, .services-grid { grid-template-columns: 1fr; }
             .process-steps { grid-template-columns: 1fr; }
             .contact-box { grid-template-columns: 1fr; gap: 2rem; padding: 2rem; }
             nav ul { display: none; }
@@ -439,8 +344,6 @@
     </style>
 </head>
 <body>
-
-<!-- NAV -->
 <nav>
     <div class="logo">Chris Smith <span>Compliance</span></div>
     <ul id="nav-links">
@@ -451,8 +354,6 @@
     </ul>
     <button class="mobile-toggle" onclick="document.getElementById('nav-links').style.display = document.getElementById('nav-links').style.display === 'flex' ? 'none' : 'flex'">&#9776;</button>
 </nav>
-
-<!-- HERO -->
 <section class="hero">
     <div class="hero-content">
         <h1>Independent Mortgage &amp; Protection <span>File Review</span> Services</h1>
@@ -460,8 +361,6 @@
         <a href="#contact" class="hero-cta">Get in Touch</a>
     </div>
 </section>
-
-<!-- CREDENTIAL STRIP -->
 <div class="credentials">
     <div class="credential-item">
         <span class="number">10+</span>
@@ -480,8 +379,6 @@
         <span class="label">Compliance Record</span>
     </div>
 </div>
-
-<!-- ABOUT -->
 <section class="about" id="about">
     <div class="container">
         <span class="section-label">About</span>
@@ -490,15 +387,15 @@
         <div class="experience-grid">
             <div class="experience-card">
                 <h4>High Street Banking</h4>
-                <p>Personal Mortgage Adviser at NatWest. Tier-1 regulated environment with rigorous credit risk and Right First Time documentation standards.</p>
+                <p>Personal Mortgage Adviser at NatWest. Tier-1 regulated environment with rigorous credit risk and documentation standards.</p>
             </div>
             <div class="experience-card">
-                <h4>Specialist &amp; Adverse Lending</h4>
+                <h4>Specialist Lending</h4>
                 <p>Secured loans and complex lending, including adverse credit and non-standard income cases requiring robust advice trails.</p>
             </div>
             <div class="experience-card">
                 <h4>New Build Mortgages</h4>
-                <p>Specialist new build experience navigating developer schemes, incentive handling, and valuation complexities.</p>
+                <p>Specialist new build mortgage experience navigating developer schemes, incentive handling, and valuation complexities.</p>
             </div>
             <div class="experience-card">
                 <h4>Self-Employed Broking</h4>
@@ -507,8 +404,6 @@
         </div>
     </div>
 </section>
-
-<!-- SERVICES -->
 <section class="services" id="services">
     <div class="container">
         <span class="section-label">Services</span>
@@ -538,8 +433,6 @@
         </div>
     </div>
 </section>
-
-<!-- PROCESS -->
 <section class="process" id="process">
     <div class="container">
         <span class="section-label">How It Works</span>
@@ -564,43 +457,41 @@
         </div>
     </div>
 </section>
-
-<!-- WHY -->
 <section class="why" id="why">
     <div class="container">
         <span class="section-label">Why Work With Me</span>
         <h2 class="section-title">What you get</h2>
         <div class="why-list">
             <div class="why-item">
-                <div class="why-icon"><i class="fas fa-check"></i></div>
+                <div class="why-icon">&#10003;</div>
                 <div>
                     <h4>Practitioner, not just a checker</h4>
                     <p>I've written mortgage and protection files under real-world pressure. I review against lived experience of what busy brokers miss, not just a template.</p>
                 </div>
             </div>
             <div class="why-item">
-                <div class="why-icon"><i class="fas fa-bolt"></i></div>
+                <div class="why-icon">&#10003;</div>
                 <div>
                     <h4>Fast turnaround</h4>
-                    <p>Files reviewed and returned promptly. No long queues or weeks of waiting. I understand that timely reviews keep your business moving.</p>
+                    <p>Files reviewed and returned promptly. No long queues or waiting weeks for feedback. I understand that timely reviews keep your business moving.</p>
                 </div>
             </div>
             <div class="why-item">
-                <div class="why-icon"><i class="fas fa-list-check"></i></div>
+                <div class="why-icon">&#10003;</div>
                 <div>
                     <h4>Consistent standard</h4>
                     <p>Every file reviewed against the same structured checklist. No variation in quality whether it's the first review of the day or the last.</p>
                 </div>
             </div>
             <div class="why-item">
-                <div class="why-icon"><i class="fas fa-shield-halved"></i></div>
+                <div class="why-icon">&#10003;</div>
                 <div>
                     <h4>Confidential and secure</h4>
                     <p>All client data handled in strict accordance with GDPR requirements. Professional indemnity insurance in place.</p>
                 </div>
             </div>
             <div class="why-item">
-                <div class="why-icon"><i class="fas fa-sliders"></i></div>
+                <div class="why-icon">&#10003;</div>
                 <div>
                     <h4>Flexible arrangements</h4>
                     <p>Per-file pricing, day rates, or monthly retainers. I'll work around your volume and schedule — no long-term commitments required.</p>
@@ -609,13 +500,11 @@
         </div>
     </div>
 </section>
-
-<!-- CONTACT -->
 <section class="contact" id="contact">
     <div class="container">
         <span class="section-label">Get in Touch</span>
         <h2 class="section-title">Interested in working together?</h2>
-        <p class="section-text">Whether you need a one-off file review or an ongoing arrangement, I'm happy to discuss how I can help — including a free sample review so you can see the standard of work.</p>
+        <p class="section-text">Whether you need a one-off file review or an ongoing arrangement, I'm happy to discuss how I can help.</p>
         <div class="contact-box">
             <div class="contact-info">
                 <h3>Let's talk</h3>
@@ -634,25 +523,22 @@
                 </div>
                 <div class="contact-detail">
                     <div class="detail-label">LinkedIn</div>
-                    <a href="https://www.linkedin.com/in/christopher-smith-66bb21167/" target="_blank" rel="noopener noreferrer">Connect on LinkedIn</a>
+                    <a href="https://www.linkedin.com/in/christopher-smith-66bb21167/" target="_blank">Connect on LinkedIn</a>
                 </div>
             </div>
-            <form class="contact-form" action="mailto:chrisrsmith28@yahoo.co.uk" method="post" enctype="text/plain">
-                <input type="text" name="name" placeholder="Your Name" required>
-                <input type="email" name="email" placeholder="Your Email" required>
-                <input type="text" name="firm" placeholder="Your Firm">
-                <textarea name="message" placeholder="Tell me about your file review needs..."></textarea>
+            <form class="contact-form" onsubmit="event.preventDefault(); alert('Thanks for your message. I\'ll be in touch shortly.');">
+                <input type="text" placeholder="Your Name" required>
+                <input type="email" placeholder="Your Email" required>
+                <input type="text" placeholder="Your Firm">
+                <textarea placeholder="Tell me about your file review needs..."></textarea>
                 <button type="submit">Send Message</button>
             </form>
         </div>
     </div>
 </section>
-
-<!-- FOOTER -->
 <footer>
-    <p>&copy; 2026 Chris Smith Compliance. All rights reserved.</p>
-    <p style="margin-top:0.5rem;">Independent file review services for mortgage and protection advisers &nbsp;|&nbsp; <a href="https://www.chrissmithmortgages.com" target="_blank" rel="noopener noreferrer">Chris Smith Mortgages</a></p>
+    &copy; 2026 Chris Smith Compliance. All rights reserved.<br>
+    Independent file review services for mortgage and protection advisers.
 </footer>
-
 </body>
 </html>
