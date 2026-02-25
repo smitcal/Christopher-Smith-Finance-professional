@@ -3,361 +3,656 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Christopher Smith | Chief of Staff & Strategic Executive Leader</title>
-    <link rel="stylesheet" href="css/style.css">
+    <title>Chris Smith | Mortgage & Protection File Review Services</title>
+    <meta name="description" content="Independent mortgage and protection file review services. Over 10 years' FCA-regulated experience. Thorough, reliable compliance file checking for brokers and DA firms.">
+    <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary:      #0d9488;
+            --primary-dark: #0f766e;
+            --primary-deep: #134e4a;
+            --accent:       #5eead4;
+            --light-bg:     #f0fdfa;
+            --mid-bg:       #ccfbf1;
+            --text-dark:    #1e293b;
+            --text-light:   #64748b;
+            --white:        #ffffff;
+            --border:       #d1fae5;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'DM Sans', sans-serif;
+            color: var(--text-dark);
+            background: var(--light-bg);
+            line-height: 1.7;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* ── NAV ── */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: var(--primary-deep);
+            padding: 1rem 2rem;
+            z-index: 100;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        nav .logo {
+            font-family: 'DM Serif Display', serif;
+            color: var(--white);
+            font-size: 1.2rem;
+            letter-spacing: 0.5px;
+        }
+
+        nav .logo span { color: var(--accent); }
+
+        nav ul { list-style: none; display: flex; gap: 2rem; }
+
+        nav ul li a {
+            color: rgba(255,255,255,0.85);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        nav ul li a:hover { color: var(--accent); }
+
+        .mobile-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--white);
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* ── HERO ── */
+        .hero {
+            background: linear-gradient(135deg, var(--primary-deep) 0%, var(--primary) 100%);
+            padding: 9rem 2rem 5rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background:
+                radial-gradient(ellipse at 25% 50%, rgba(94,234,212,0.12) 0%, transparent 55%),
+                radial-gradient(ellipse at 75% 30%, rgba(255,255,255,0.06) 0%, transparent 50%);
+            pointer-events: none;
+        }
+
+        .hero-content { position: relative; max-width: 750px; margin: 0 auto; }
+
+        .hero h1 {
+            font-family: 'DM Serif Display', serif;
+            color: var(--white);
+            font-size: 3rem;
+            line-height: 1.2;
+            margin-bottom: 1.5rem;
+        }
+
+        .hero h1 span { color: var(--accent); }
+
+        .hero p {
+            color: rgba(255,255,255,0.88);
+            font-size: 1.15rem;
+            max-width: 620px;
+            margin: 0 auto 2.5rem;
+        }
+
+        .hero-cta {
+            display: inline-block;
+            background: var(--white);
+            color: var(--primary-dark);
+            padding: 0.9rem 2.5rem;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.95rem;
+            border-radius: 6px;
+            transition: all 0.3s;
+        }
+
+        .hero-cta:hover {
+            background: var(--accent);
+            color: var(--primary-deep);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 24px rgba(15,118,110,0.35);
+        }
+
+        /* ── CREDENTIAL STRIP ── */
+        .credentials {
+            background: var(--primary-dark);
+            padding: 1.75rem 2rem;
+            display: flex;
+            justify-content: center;
+            gap: 3rem;
+            flex-wrap: wrap;
+        }
+
+        .credential-item { text-align: center; }
+
+        .credential-item .number {
+            font-family: 'DM Serif Display', serif;
+            font-size: 1.8rem;
+            color: var(--accent);
+            display: block;
+        }
+
+        .credential-item .label {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: rgba(255,255,255,0.75);
+        }
+
+        /* ── SECTION SHARED ── */
+        section { padding: 5rem 2rem; }
+        .container { max-width: 900px; margin: 0 auto; }
+
+        .section-label {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            color: var(--primary);
+            font-weight: 600;
+            margin-bottom: 0.6rem;
+        }
+
+        .section-title {
+            font-family: 'DM Serif Display', serif;
+            font-size: 2.2rem;
+            color: var(--text-dark);
+            margin-bottom: 1.25rem;
+            line-height: 1.3;
+        }
+
+        .section-text {
+            color: var(--text-light);
+            font-size: 1.05rem;
+            max-width: 700px;
+            margin-bottom: 2rem;
+        }
+
+        /* ── ABOUT ── */
+        .about { background: var(--white); }
+
+        .experience-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.25rem;
+            margin-top: 2.5rem;
+        }
+
+        .experience-card {
+            background: var(--light-bg);
+            padding: 1.75rem;
+            border-left: 3px solid var(--primary);
+            border-radius: 4px;
+        }
+
+        .experience-card h4 {
+            font-family: 'DM Serif Display', serif;
+            color: var(--primary-dark);
+            font-size: 1.05rem;
+            margin-bottom: 0.4rem;
+        }
+
+        .experience-card p { color: var(--text-light); font-size: 0.92rem; }
+
+        /* ── SERVICES ── */
+        .services { background: var(--light-bg); }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+            margin-top: 2.5rem;
+        }
+
+        .service-card {
+            background: var(--white);
+            padding: 2.25rem 2rem;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            transition: all 0.3s;
+        }
+
+        .service-card:hover {
+            border-color: var(--primary);
+            transform: translateY(-4px);
+            box-shadow: 0 10px 30px rgba(13,148,136,0.12);
+        }
+
+        .service-card h3 {
+            font-family: 'DM Serif Display', serif;
+            color: var(--text-dark);
+            font-size: 1.2rem;
+            margin-bottom: 0.6rem;
+        }
+
+        .service-card p { color: var(--text-light); font-size: 0.92rem; }
+
+        .service-tag {
+            display: inline-block;
+            background: var(--mid-bg);
+            color: var(--primary-dark);
+            padding: 0.25rem 0.75rem;
+            font-size: 0.72rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border-radius: 20px;
+            margin-bottom: 0.85rem;
+        }
+
+        /* ── PROCESS ── */
+        .process { background: var(--primary-deep); }
+        .process .section-label { color: var(--accent); }
+        .process .section-title { color: var(--white); }
+        .process .section-text { color: rgba(255,255,255,0.78); }
+
+        .process-steps {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .step {
+            text-align: center;
+            padding: 2rem 1.5rem;
+            border: 1px solid rgba(94,234,212,0.25);
+            border-radius: 8px;
+            background: rgba(255,255,255,0.04);
+        }
+
+        .step-number {
+            font-family: 'DM Serif Display', serif;
+            font-size: 2.5rem;
+            color: var(--accent);
+            display: block;
+            margin-bottom: 0.85rem;
+            opacity: 0.7;
+        }
+
+        .step h4 { color: var(--white); font-size: 1rem; margin-bottom: 0.6rem; }
+        .step p  { font-size: 0.88rem; color: rgba(255,255,255,0.72); line-height: 1.6; }
+
+        /* ── WHY ── */
+        .why { background: var(--white); }
+        .why-list { margin-top: 2rem; }
+
+        .why-item {
+            padding: 1.5rem 0;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            gap: 1.5rem;
+            align-items: flex-start;
+        }
+
+        .why-item:last-child { border-bottom: none; }
+
+        .why-icon {
+            width: 38px; height: 38px; min-width: 38px;
+            background: var(--mid-bg);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary);
+            font-size: 1rem;
+        }
+
+        .why-item h4 {
+            font-family: 'DM Serif Display', serif;
+            color: var(--text-dark);
+            font-size: 1.05rem;
+            margin-bottom: 0.3rem;
+        }
+
+        .why-item p { color: var(--text-light); font-size: 0.92rem; }
+
+        /* ── CONTACT ── */
+        .contact { background: var(--light-bg); }
+
+        .contact-box {
+            background: var(--white);
+            padding: 3rem;
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            margin-top: 2rem;
+        }
+
+        .contact-info h3 {
+            font-family: 'DM Serif Display', serif;
+            color: var(--text-dark);
+            font-size: 1.4rem;
+            margin-bottom: 0.85rem;
+        }
+
+        .contact-info p { color: var(--text-light); font-size: 0.95rem; margin-bottom: 1.5rem; }
+
+        .contact-detail { margin-bottom: 1rem; }
+
+        .contact-detail .detail-label {
+            font-size: 0.72rem;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: var(--primary);
+            font-weight: 600;
+            margin-bottom: 0.2rem;
+        }
+
+        .contact-detail a, .contact-detail span {
+            color: var(--text-dark);
+            text-decoration: none;
+            font-size: 1rem;
+            font-weight: 500;
+        }
+
+        .contact-detail a:hover { color: var(--primary); }
+
+        .contact-form input,
+        .contact-form textarea {
+            width: 100%;
+            padding: 0.85rem 1rem;
+            border: 1px solid var(--border);
+            background: var(--light-bg);
+            font-family: 'DM Sans', sans-serif;
+            font-size: 0.95rem;
+            margin-bottom: 1rem;
+            border-radius: 6px;
+            transition: border-color 0.3s;
+            outline: none;
+        }
+
+        .contact-form input:focus,
+        .contact-form textarea:focus { border-color: var(--primary); }
+
+        .contact-form textarea { height: 120px; resize: vertical; }
+
+        .contact-form button {
+            background: var(--primary);
+            color: var(--white);
+            border: none;
+            padding: 0.9rem 2.5rem;
+            font-family: 'DM Sans', sans-serif;
+            font-weight: 600;
+            font-size: 0.95rem;
+            cursor: pointer;
+            border-radius: 6px;
+            transition: all 0.3s;
+        }
+
+        .contact-form button:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 16px rgba(13,148,136,0.3);
+        }
+
+        /* ── FOOTER ── */
+        footer {
+            background: var(--primary-deep);
+            padding: 2rem;
+            text-align: center;
+            color: rgba(255,255,255,0.65);
+            font-size: 0.82rem;
+        }
+
+        footer a {
+            color: var(--accent);
+            text-decoration: none;
+        }
+
+        footer a:hover { text-decoration: underline; }
+
+        /* ── RESPONSIVE ── */
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 2.1rem; }
+            .hero { padding: 7.5rem 1.5rem 4rem; }
+            .credentials { gap: 1.75rem; padding: 1.5rem; }
+            .credential-item .number { font-size: 1.4rem; }
+            .experience-grid,
+            .services-grid { grid-template-columns: 1fr; }
+            .process-steps { grid-template-columns: 1fr; }
+            .contact-box { grid-template-columns: 1fr; gap: 2rem; padding: 2rem; }
+            nav ul { display: none; }
+            .mobile-toggle { display: block; }
+            .section-title { font-size: 1.8rem; }
+            section { padding: 3.5rem 1.5rem; }
+        }
+    </style>
 </head>
 <body>
-    <!-- Navigation -->
-    <nav class="navbar">
-        <div class="container">
-            <div class="nav-brand">Christopher Smith</div>
-            <ul class="nav-menu">
-                <li><a href="#home">Home</a></li>
-                <li><a href="#about">About</a></li>
-                <li><a href="#expertise">Expertise</a></li>
-                <li><a href="#experience">Experience</a></li>
-                <li><a href="#skills">Skills</a></li>
-                <li><a href="#contact">Contact</a></li>
-            </ul>
-            <div class="mobile-menu-toggle">
-                <i class="fas fa-bars"></i>
+
+<!-- NAV -->
+<nav>
+    <div class="logo">Chris Smith <span>Compliance</span></div>
+    <ul id="nav-links">
+        <li><a href="#about">About</a></li>
+        <li><a href="#services">Services</a></li>
+        <li><a href="#process">Process</a></li>
+        <li><a href="#contact">Contact</a></li>
+    </ul>
+    <button class="mobile-toggle" onclick="document.getElementById('nav-links').style.display = document.getElementById('nav-links').style.display === 'flex' ? 'none' : 'flex'">&#9776;</button>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+    <div class="hero-content">
+        <h1>Independent Mortgage &amp; Protection <span>File Review</span> Services</h1>
+        <p>Thorough, reliable compliance file checking for brokers, DA firms and advisory networks. Over 10 years' FCA-regulated experience across the mortgage lifecycle.</p>
+        <a href="#contact" class="hero-cta">Get in Touch</a>
+    </div>
+</section>
+
+<!-- CREDENTIAL STRIP -->
+<div class="credentials">
+    <div class="credential-item">
+        <span class="number">10+</span>
+        <span class="label">Years FCA Regulated</span>
+    </div>
+    <div class="credential-item">
+        <span class="number">CeMAP</span>
+        <span class="label">Qualified</span>
+    </div>
+    <div class="credential-item">
+        <span class="number">R01 &amp; R05</span>
+        <span class="label">CII Certified</span>
+    </div>
+    <div class="credential-item">
+        <span class="number">100%</span>
+        <span class="label">Compliance Record</span>
+    </div>
+</div>
+
+<!-- ABOUT -->
+<section class="about" id="about">
+    <div class="container">
+        <span class="section-label">About</span>
+        <h2 class="section-title">A reviewer who's written the files, not just read them</h2>
+        <p class="section-text">With over a decade in FCA-regulated financial services, I bring practical, real-world experience to every file review. I know where files go wrong because I've been in the chair — under pressure, managing complex cases, and maintaining standards when it matters most.</p>
+        <div class="experience-grid">
+            <div class="experience-card">
+                <h4>High Street Banking</h4>
+                <p>Personal Mortgage Adviser at NatWest. Tier-1 regulated environment with rigorous credit risk and Right First Time documentation standards.</p>
+            </div>
+            <div class="experience-card">
+                <h4>Specialist &amp; Adverse Lending</h4>
+                <p>Secured loans and complex lending, including adverse credit and non-standard income cases requiring robust advice trails.</p>
+            </div>
+            <div class="experience-card">
+                <h4>New Build Mortgages</h4>
+                <p>Specialist new build experience navigating developer schemes, incentive handling, and valuation complexities.</p>
+            </div>
+            <div class="experience-card">
+                <h4>Self-Employed Broking</h4>
+                <p>Founded and ran my own brokerage. Full regulatory responsibility including FCA compliance, data protection and advice quality.</p>
             </div>
         </div>
-    </nav>
+    </div>
+</section>
 
-    <!-- Hero Section -->
-    <section id="home" class="hero">
-        <div class="hero-overlay"></div>
-        <div class="container hero-content">
-            <h1 class="hero-title">Christopher Smith</h1>
-            <h2 class="hero-subtitle">Chief of Staff | Strategic Executive Leader</h2>
-            <p class="hero-tagline">Driving strategic alignment, governance, and cultural excellence in high-stakes environments</p>
-            <div class="hero-cta">
-                <a href="#contact" class="btn btn-primary">Get In Touch</a>
-                <a href="#experience" class="btn btn-secondary">View Experience</a>
+<!-- SERVICES -->
+<section class="services" id="services">
+    <div class="container">
+        <span class="section-label">Services</span>
+        <h2 class="section-title">File review services</h2>
+        <p class="section-text">Comprehensive file checking against FCA requirements, Consumer Duty obligations, and your firm's own compliance standards. Available on a per-file or day-rate basis.</p>
+        <div class="services-grid">
+            <div class="service-card">
+                <span class="service-tag">Mortgage</span>
+                <h3>Mortgage File Review</h3>
+                <p>Full review of mortgage advice files including suitability, affordability assessment, vulnerability considerations, product selection rationale, and documentation completeness.</p>
+            </div>
+            <div class="service-card">
+                <span class="service-tag">Protection</span>
+                <h3>Protection File Review</h3>
+                <p>Review of protection advice files covering needs analysis, product suitability, disclosure, replacement business justification, and ongoing service obligations.</p>
+            </div>
+            <div class="service-card">
+                <span class="service-tag">Consumer Duty</span>
+                <h3>Consumer Duty Readiness</h3>
+                <p>File assessment against FCA Consumer Duty requirements — fair value, consumer understanding, products and services, and customer support outcomes.</p>
+            </div>
+            <div class="service-card">
+                <span class="service-tag">Flexible</span>
+                <h3>Bespoke Arrangements</h3>
+                <p>Day rates for in-house review sessions, bulk file audits, or ongoing retainer arrangements tailored to your firm's needs and review schedule.</p>
             </div>
         </div>
-    </section>
+    </div>
+</section>
 
-    <!-- Professional Summary -->
-    <section id="about" class="section-light">
-        <div class="container">
-            <h2 class="section-title">Professional Summary</h2>
-            <div class="summary-content">
-                <p class="summary-text">
-                    A dynamic Executive Leader with a unique blend of corporate governance background (NatWest) and agile operational leadership (NRise). Expert in "Chief of Staff" functions: facilitating executive decision-making, leading cross-functional change, and embedding culture. Proven ability to bridge the gap between technical teams, finance, and the Board.
-                </p>
-                <p class="summary-text">
-                    Passionate about people development, coaching, and creating psychological safety in high-performance teams. Known for turning strategic ideas into practical, scalable systems that drive efficiency, profitability, and customer experience.
-                </p>
+<!-- PROCESS -->
+<section class="process" id="process">
+    <div class="container">
+        <span class="section-label">How It Works</span>
+        <h2 class="section-title">Simple, consistent, thorough</h2>
+        <p class="section-text">Every file is reviewed against a structured checklist to ensure nothing is missed. Clear, actionable feedback is returned promptly.</p>
+        <div class="process-steps">
+            <div class="step">
+                <span class="step-number">01</span>
+                <h4>Send the File</h4>
+                <p>Share the completed advice file securely. I'll work to your existing templates or provide my own structured checklist.</p>
             </div>
-            <div class="stats-grid">
-                <div class="stat-card">
-                    <div class="stat-number">100%</div>
-                    <div class="stat-label">Long-term Hire Success Rate</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-number">8+</div>
-                    <div class="stat-label">Years Executive Experience</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-number">100%</div>
-                    <div class="stat-label">Compliance Record</div>
-                </div>
+            <div class="step">
+                <span class="step-number">02</span>
+                <h4>Thorough Review</h4>
+                <p>Every section checked against FCA requirements, Consumer Duty obligations, and your firm's compliance standards.</p>
+            </div>
+            <div class="step">
+                <span class="step-number">03</span>
+                <h4>Clear Feedback</h4>
+                <p>A concise review report highlighting any gaps, risks, or areas for improvement — with practical suggestions, not just red flags.</p>
             </div>
         </div>
-    </section>
+    </div>
+</section>
 
-    <!-- Key Expertise -->
-    <section id="expertise" class="section-dark">
-        <div class="container">
-            <h2 class="section-title">Key Expertise</h2>
-            <div class="expertise-grid">
-                <div class="expertise-card">
-                    <div class="expertise-icon">
-                        <i class="fas fa-bullseye"></i>
-                    </div>
-                    <h3>Strategic Alignment</h3>
-                    <ul>
-                        <li>OKR/KPI Tracking</li>
-                        <li>Executive Reporting</li>
-                        <li>Board Liaison</li>
-                    </ul>
-                </div>
-                <div class="expertise-card">
-                    <div class="expertise-icon">
-                        <i class="fas fa-users"></i>
-                    </div>
-                    <h3>People & Culture</h3>
-                    <ul>
-                        <li>Change Management</li>
-                        <li>Coaching Frameworks</li>
-                        <li>Internal Communications</li>
-                    </ul>
-                </div>
-                <div class="expertise-card">
-                    <div class="expertise-icon">
-                        <i class="fas fa-shield-alt"></i>
-                    </div>
-                    <h3>Governance & Risk</h3>
-                    <ul>
-                        <li>FCA/GDPR Standards</li>
-                        <li>Audit Management</li>
-                        <li>Policy Design</li>
-                    </ul>
-                </div>
-                <div class="expertise-card">
-                    <div class="expertise-icon">
-                        <i class="fas fa-handshake"></i>
-                    </div>
-                    <h3>Stakeholder Management</h3>
-                    <ul>
-                        <li>Cross-functional Collaboration</li>
-                        <li>Finance, Engineering, Sales</li>
-                        <li>Executive Partnership</li>
-                    </ul>
+<!-- WHY -->
+<section class="why" id="why">
+    <div class="container">
+        <span class="section-label">Why Work With Me</span>
+        <h2 class="section-title">What you get</h2>
+        <div class="why-list">
+            <div class="why-item">
+                <div class="why-icon"><i class="fas fa-check"></i></div>
+                <div>
+                    <h4>Practitioner, not just a checker</h4>
+                    <p>I've written mortgage and protection files under real-world pressure. I review against lived experience of what busy brokers miss, not just a template.</p>
                 </div>
             </div>
-        </div>
-    </section>
-
-    <!-- Experience -->
-    <section id="experience" class="section-light">
-        <div class="container">
-            <h2 class="section-title">Executive Experience</h2>
-            <div class="timeline">
-                <!-- NRise -->
-                <div class="timeline-item">
-                    <div class="timeline-marker"></div>
-                    <div class="timeline-content">
-                        <div class="timeline-header">
-                            <h3>Operations Director / COO</h3>
-                            <span class="company">NRise Ltd</span>
-                        </div>
-                        <div class="timeline-meta">
-                            <span class="date">July 2023 – Present</span>
-                            <span class="location">Nationwide</span>
-                        </div>
-                        <p class="role-description">Member of the Executive Leadership Team, serving as the strategic integrator between the Managing Director and the wider business.</p>
-                        <ul class="achievements">
-                            <li><strong>Executive Partnership:</strong> Partnered with the CEO to translate long-term vision into actionable roadmaps. Implemented the "Ops Wins" strategic framework to ensure all departments remained aligned on quarterly objectives.</li>
-                            <li><strong>Organisational Design:</strong> Restructured project ownership frameworks, empowering engineering staff to take accountability for timelines, surfacing support needs earlier in the delivery cycle.</li>
-                            <li><strong>People & Culture Strategy:</strong> Designed the "Weekly Wins" recognition programme to improve internal communication and morale, successfully driving engagement across remote and field-based teams.</li>
-                            <li><strong>Governance & Employee Relations:</strong> Successfully managed sensitive employee compliance cases, ensuring strict alignment with the staff handbook and demonstrating fair, transparent governance.</li>
-                            <li><strong>Knowledge Management:</strong> Launched a centralised SharePoint knowledge base (The Wiki) to standardise onboarding and ensure consistent cultural alignment for new hires.</li>
-                            <li><strong>Data-Driven Decision Making:</strong> Built early-stage KPI trackers to monitor engagement metrics and automation savings, supporting the Board with data-backed insights.</li>
-                            <li><strong>Strategic Talent Acquisition:</strong> Redefined the hiring strategy to value personality and cultural alignment over raw experience. This shift transformed recruitment outcomes, taking the long-term hire success rate from 25% to 100%.</li>
-                        </ul>
-                        <div class="screenshot-container">
-                            <img src="images/ops-wins-tracker.png" alt="Ops Wins Tracker Dashboard" class="experience-screenshot">
-                            <p class="screenshot-caption">Ops Wins strategic framework tracker (anonymized)</p>
-                        </div>
-                    </div>
+            <div class="why-item">
+                <div class="why-icon"><i class="fas fa-bolt"></i></div>
+                <div>
+                    <h4>Fast turnaround</h4>
+                    <p>Files reviewed and returned promptly. No long queues or weeks of waiting. I understand that timely reviews keep your business moving.</p>
                 </div>
-
-                <!-- Chris Smith Mortgages -->
-                <div class="timeline-item">
-                    <div class="timeline-marker"></div>
-                    <div class="timeline-content">
-                        <div class="timeline-header">
-                            <h3>Founder and Principal</h3>
-                            <span class="company"><a href="https://www.chrissmithmortgages.com" target="_blank" rel="noopener noreferrer" class="company-link">Chris Smith Mortgages</a></span>
-                        </div>
-                        <div class="timeline-meta">
-                            <span class="date">April 2022 – Present</span>
-                            <span class="location">North-West</span>
-                        </div>
-                        <p class="role-description">Founded a boutique advisory firm, focusing on digital acquisition and regulatory compliance (Now passive to supply leads). <a href="https://www.chrissmithmortgages.com" target="_blank" rel="noopener noreferrer" class="inline-link">Visit website</a></p>
-                        <ul class="achievements">
-                            <li><strong>Regulatory Oversight:</strong> Managed all FCA compliance obligations, ensuring robust advice trails and data protection standards were met.</li>
-                            <li><strong>Strategic Marketing:</strong> Leveraged SEO and inbound marketing strategies to build a sustainable pipeline without reliance on external lead vendors.</li>
-                        </ul>
-                        <div class="testimonials-box">
-                            <div class="testimonials-content">
-                                <h4><i class="fas fa-star"></i> 5-Star Google Reviews</h4>
-                                <p>See what clients are saying about Chris Smith Mortgages</p>
-                                <a href="https://www.chrissmithmortgages.com/testimonials" target="_blank" rel="noopener noreferrer" class="btn btn-testimonials">View Client Testimonials</a>
-                            </div>
-                        </div>
-                    </div>
+            </div>
+            <div class="why-item">
+                <div class="why-icon"><i class="fas fa-list-check"></i></div>
+                <div>
+                    <h4>Consistent standard</h4>
+                    <p>Every file reviewed against the same structured checklist. No variation in quality whether it's the first review of the day or the last.</p>
                 </div>
-
-                <!-- Wiseone -->
-                <div class="timeline-item">
-                    <div class="timeline-marker"></div>
-                    <div class="timeline-content">
-                        <div class="timeline-header">
-                            <h3>Head of Complex Lending Desk / Process Lead</h3>
-                            <span class="company">Wiseone Mortgages</span>
-                        </div>
-                        <div class="timeline-meta">
-                            <span class="date">September 2020 – April 2022</span>
-                            <span class="location">Lymm, Cheshire</span>
-                        </div>
-                        <p class="role-description">Combined high-performance advisory work with a mandate to improve team standards and regulatory adherence.</p>
-                        <ul class="achievements">
-                            <li><strong>Quality Assurance Leadership:</strong> Designed a "Safe-Check" compliance framework, sharing best practices with the wider advisory team to ensure files met strict FCA requirements before submission.</li>
-                            <li><strong>Training & Development:</strong> Mentored team members on complex case handling, directly improving the team's ability to navigate adverse credit scenarios and boosting collective efficiency by 14%.</li>
-                            <li><strong>Performance Excellence:</strong> Maintained a 100% file compliance record while achieving top-tier conversion rates, modelling the balance between commercial drive and risk management.</li>
-                        </ul>
-                    </div>
+            </div>
+            <div class="why-item">
+                <div class="why-icon"><i class="fas fa-shield-halved"></i></div>
+                <div>
+                    <h4>Confidential and secure</h4>
+                    <p>All client data handled in strict accordance with GDPR requirements. Professional indemnity insurance in place.</p>
                 </div>
-
-                <!-- NatWest -->
-                <div class="timeline-item">
-                    <div class="timeline-marker"></div>
-                    <div class="timeline-content">
-                        <div class="timeline-header">
-                            <h3>Personal Mortgage Advisor</h3>
-                            <span class="company">NatWest</span>
-                        </div>
-                        <div class="timeline-meta">
-                            <span class="date">October 2015 – July 2020</span>
-                            <span class="location">Chorlton-Cum-Hardy, Manchester</span>
-                        </div>
-                        <ul class="achievements">
-                            <li><strong>Risk Management:</strong> Operated within a highly regulated Tier-1 banking environment, ensuring rigorous adherence to credit risk policies and lending criteria.</li>
-                            <li><strong>Customer Experience:</strong> Maintained high customer satisfaction scores while navigating complex financial assessments and "Right First Time" documentation standards.</li>
-                            <li><strong>Communication:</strong> Translated complex financial products into clear, accessible language for diverse stakeholders.</li>
-                        </ul>
-                    </div>
-                </div>
-
-                <!-- Brytannic -->
-                <div class="timeline-item">
-                    <div class="timeline-marker"></div>
-                    <div class="timeline-content">
-                        <div class="timeline-header">
-                            <h3>Broker and Intermediary Trainer</h3>
-                            <span class="company">Brytannic Extra Finance</span>
-                        </div>
-                        <div class="timeline-meta">
-                            <span class="date">June 2015 – October 2015</span>
-                            <span class="location">Whitefield, Manchester</span>
-                        </div>
-                        <p class="role-description">Facilitated training workshops for external financial advisors to ensure alignment with lending criteria and service standards.</p>
-                    </div>
+            </div>
+            <div class="why-item">
+                <div class="why-icon"><i class="fas fa-sliders"></i></div>
+                <div>
+                    <h4>Flexible arrangements</h4>
+                    <p>Per-file pricing, day rates, or monthly retainers. I'll work around your volume and schedule — no long-term commitments required.</p>
                 </div>
             </div>
         </div>
-    </section>
+    </div>
+</section>
 
-    <!-- Skills -->
-    <section id="skills" class="section-dark">
-        <div class="container">
-            <h2 class="section-title">Core Competencies</h2>
-            <div class="skills-grid">
-                <div class="skill-category">
-                    <h3><i class="fas fa-chart-line"></i> Operational Leadership & Business Strategy</h3>
-                    <ul>
-                        <li>Strategic Leadership & Executive Partnership</li>
-                        <li>End-to-End Operations Oversight</li>
-                        <li>Commercial & Financial Management (P&L, Budgeting)</li>
-                        <li>Systems & Process Design</li>
-                        <li>Data-Driven Decision Making & KPI Tracking</li>
-                    </ul>
+<!-- CONTACT -->
+<section class="contact" id="contact">
+    <div class="container">
+        <span class="section-label">Get in Touch</span>
+        <h2 class="section-title">Interested in working together?</h2>
+        <p class="section-text">Whether you need a one-off file review or an ongoing arrangement, I'm happy to discuss how I can help — including a free sample review so you can see the standard of work.</p>
+        <div class="contact-box">
+            <div class="contact-info">
+                <h3>Let's talk</h3>
+                <p>Happy to discuss your requirements, provide a sample review, or answer any questions about how the process works.</p>
+                <div class="contact-detail">
+                    <div class="detail-label">Phone</div>
+                    <a href="tel:07794933380">07794 933 380</a>
                 </div>
-                <div class="skill-category">
-                    <h3><i class="fas fa-users-cog"></i> Stakeholder & Team Leadership</h3>
-                    <ul>
-                        <li>Cross-Functional Collaboration</li>
-                        <li>Coaching & Development</li>
-                        <li>Change Management</li>
-                        <li>Stakeholder Relationship Management</li>
-                        <li>Recruitment & Onboarding Framework Development</li>
-                    </ul>
+                <div class="contact-detail">
+                    <div class="detail-label">Email</div>
+                    <a href="mailto:chrisrsmith28@yahoo.co.uk">chrisrsmith28@yahoo.co.uk</a>
                 </div>
-                <div class="skill-category">
-                    <h3><i class="fas fa-clipboard-check"></i> Operational Excellence & Compliance</h3>
-                    <ul>
-                        <li>GDPR, H&S, and FCA Policy Alignment</li>
-                        <li>Risk & Governance Frameworks</li>
-                        <li>Quality & Accuracy Standards</li>
-                        <li>Continuous Improvement & Lean Principles</li>
-                        <li>Audit Management (100% Success Rate)</li>
-                    </ul>
+                <div class="contact-detail">
+                    <div class="detail-label">Location</div>
+                    <span>North West, England</span>
                 </div>
-                <div class="skill-category">
-                    <h3><i class="fas fa-briefcase"></i> Customer & Business Development</h3>
-                    <ul>
-                        <li>Client & Stakeholder Engagement</li>
-                        <li>Business Growth & Scaling</li>
-                        <li>SEO & Inbound Marketing</li>
-                        <li>Executive Communication</li>
-                        <li>Project Delivery & Time Management</li>
-                    </ul>
+                <div class="contact-detail">
+                    <div class="detail-label">LinkedIn</div>
+                    <a href="https://www.linkedin.com/in/christopher-smith-66bb21167/" target="_blank" rel="noopener noreferrer">Connect on LinkedIn</a>
                 </div>
             </div>
+            <form class="contact-form" action="mailto:chrisrsmith28@yahoo.co.uk" method="post" enctype="text/plain">
+                <input type="text" name="name" placeholder="Your Name" required>
+                <input type="email" name="email" placeholder="Your Email" required>
+                <input type="text" name="firm" placeholder="Your Firm">
+                <textarea name="message" placeholder="Tell me about your file review needs..."></textarea>
+                <button type="submit">Send Message</button>
+            </form>
         </div>
-    </section>
+    </div>
+</section>
 
-    <!-- Contact -->
-    <section id="contact" class="section-light">
-        <div class="container">
-            <h2 class="section-title">Get In Touch</h2>
-            <div class="contact-content">
-                <div class="contact-info">
-                    <p class="contact-intro">Interested in discussing strategic leadership opportunities or operational transformation? I'd be happy to connect.</p>
-                    <div class="contact-details">
-                        <div class="contact-item">
-                            <i class="fas fa-phone"></i>
-                            <a href="tel:07794933380">07794 933 380</a>
-                        </div>
-                        <div class="contact-item">
-                            <i class="fas fa-envelope"></i>
-                            <a href="mailto:chrisrsmith28@yahoo.co.uk">chrisrsmith28@yahoo.co.uk</a>
-                        </div>
-                        <div class="contact-item">
-                            <i class="fas fa-map-marker-alt"></i>
-                            <span>North West UK</span>
-                        </div>
-                        <div class="contact-item">
-                            <i class="fab fa-linkedin"></i>
-                            <a href="https://www.linkedin.com/in/christopher-smith-66bb21167/" target="_blank" rel="noopener noreferrer">Connect on LinkedIn</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="contact-form-wrapper">
-                    <form class="contact-form" action="mailto:chrisrsmith28@yahoo.co.uk" method="post" enctype="text/plain">
-                        <div class="form-group">
-                            <label for="name">Name</label>
-                            <input type="text" id="name" name="name" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="email">Email</label>
-                            <input type="email" id="email" name="email" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="subject">Subject</label>
-                            <input type="text" id="subject" name="subject" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="message">Message</label>
-                            <textarea id="message" name="message" rows="5" required></textarea>
-                        </div>
-                        <button type="submit" class="btn btn-primary">Send Message</button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </section>
+<!-- FOOTER -->
+<footer>
+    <p>&copy; 2026 Chris Smith Compliance. All rights reserved.</p>
+    <p style="margin-top:0.5rem;">Independent file review services for mortgage and protection advisers &nbsp;|&nbsp; <a href="https://www.chrissmithmortgages.com" target="_blank" rel="noopener noreferrer">Chris Smith Mortgages</a></p>
+</footer>
 
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="container">
-            <div class="footer-social">
-                <a href="https://www.linkedin.com/in/christopher-smith-66bb21167/" target="_blank" rel="noopener noreferrer" class="social-link">
-                    <i class="fab fa-linkedin"></i>
-                </a>
-            </div>
-            <p>&copy; 2025 Christopher Smith. All rights reserved.</p>
-            <p class="footer-tagline">Strategic Executive Leadership | Operations Excellence | Cultural Transformation</p>
-            <p class="footer-link">Looking for mortgage advice? Visit <a href="https://www.chrissmithmortgages.com" target="_blank" rel="noopener noreferrer">Chris Smith Mortgages</a></p>
-        </div>
-    </footer>
-
-    <script src="js/main.js"></script>
 </body>
 </html>
